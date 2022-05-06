@@ -16,7 +16,6 @@ public class SongController {
     ISongService iSongService;
 
     @GetMapping(value = "/settings")
-
     public String goSettings(Model model) {
         model.addAttribute("song", new Song());
         return "settings";
