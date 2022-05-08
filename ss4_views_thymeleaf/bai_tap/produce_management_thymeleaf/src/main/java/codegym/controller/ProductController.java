@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 public class ProductController {
     @Autowired
-    IProductService iProductService;
+    private IProductService iProductService;
 
     @GetMapping(value = "/")
     public String getList(Model model, RedirectAttributes redirectAttributes) {
@@ -66,14 +66,14 @@ public class ProductController {
 
     @PostMapping("/edit")
     public String editProduct(Product product, RedirectAttributes redirectAttributes) {
-        iProductService.update(product.getId(),product);
-        redirectAttributes.addFlashAttribute("message","update successfully");
+        iProductService.update(product.getId(), product);
+        redirectAttributes.addFlashAttribute("message", "update successfully");
         return "redirect:/";
     }
 
-    @GetMapping ("/search")
-    public String searchProduct (Model model,String name){
-        model.addAttribute("productList",iProductService.findByName(name));
+    @GetMapping("/search")
+    public String searchProduct(Model model, String name) {
+        model.addAttribute("productList", iProductService.findByName(name));
         return "list";
     }
 

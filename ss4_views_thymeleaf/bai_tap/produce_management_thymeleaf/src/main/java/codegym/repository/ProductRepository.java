@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ProductRepositoryImpl implements IProductRepository {
+public class ProductRepository implements IProductRepository {
     public static Map<Integer, Product> produceList = new HashMap<>();
 
     static {

@@ -9,10 +9,10 @@ import java.util.List;
 
 @Service
 
-public class ProductServiceIpml implements IProductService {
+public class ProductService implements IProductService {
 
     @Autowired
-    IProductRepository iProductRepository;
+    private IProductRepository iProductRepository;
 
 
     @Override
