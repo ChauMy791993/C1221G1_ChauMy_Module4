@@ -52,6 +52,7 @@ public class SongController {
     @PostMapping("/edit")
     public String editSong(Song song, RedirectAttributes redirectAttributes) {
         iSongService.update(song);
+        redirectAttributes.addFlashAttribute("message", "update successfully");
         return "redirect:/";
     }
 
@@ -61,8 +62,5 @@ public class SongController {
         redirectAttributes.addFlashAttribute("message","delete song successfully");
         return "redirect:/";
     }
-
-
-
 
 }
