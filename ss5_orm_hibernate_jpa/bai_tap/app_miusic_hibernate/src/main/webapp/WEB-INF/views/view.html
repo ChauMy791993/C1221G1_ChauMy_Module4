@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>View Product</h3>
+<p>
+    <a th:href="@{/}">
+        Back to Song list
+    </a>
+</p>
+<div id="detail">
+    <div>
+        <label>Name song:</label>
+        <label th:text="${song.id}"></label>
+    </div>
+    <div>
+        <label>Name singer :</label>
+        <label th:text="${song.nameSong}"></label>
+    </div>
+    <div>
+        <label>Type music :</label>
+        <label th:text="${song.typeMusic}"></label>
+    </div>
+    <div>
+        <label>File music :</label>
+        <label th:text="${song.fileMusic}"></label>
+    </div>
+</div>
+</body>

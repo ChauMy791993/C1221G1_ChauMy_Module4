@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="~{layout::top-bootstrap}"></th:block>
+</head>
+<body>
+<h2>Song List</h2>
+<div class="notify">
+    <div th:if="${message}">
+        <span th:text="${message}" class="text-success"></span>
+    </div>
+</div>
+
+
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <button><a th:href="@{/create}">Add New Song</a></button>
+        <form class="d-flex input-group w-auto" action="/search">
+            <input
+                    type="search"
+                    class="form-control rounded"
+                    placeholder="Search"
+                    aria-label="Search"
+                    aria-describedby="search-addon"
+
+                    name="name"
+            />
+            <input class="btn btn-info" type="submit" value="Search">
+        </form>
+    </div>
+</nav>
+
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">id</th>
+            <th scope="col">Song Name</th>
+            <th scope="col">Singer Name</th>
+            <th scope="col">Type music</th>
+            <th scope="col">File music</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            <th scope="col">View</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="song,lopp : ${songList}">
+            <td scope="row" th:text="${lopp.count}"></td>
+            <td th:text="${song.id}"></td>
+            <td th:text="${song.nameSong}"></td>
+            <td th:text="${song.singerName}"></td>
+            <td th:text="${song.typeMusic}"></td>
+            <td th:text="${song.fileMusic}"></td>
+            <td>
+                <button type="button"><a th:href="@{/edit(id=${song.id})}">Edit</a></button>
+            </td>
+            <td>
+                <button th:attr="onclick=|deleteModal('${song.id}', '${song.nameSong}')|" type="button"
+                         data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                    Delete
+                </button>
+            </td>
+            <td>
+                <button type="button"><a th:href="@{/view(id=${song.id})}">View</a></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Modal -->
+    <form th:action="@{/delete}" method="post">
+        <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog  ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Song</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn có muốn xóa bài hát này không<br>
+                        <span>Tên: <p id = "name"></p></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                            Close
+                        </button>
+                        <input type="hidden" name="id" id="id-del">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function deleteModal(id,name) {
+        document.getElementById("id-del").value = id;
+        document.getElementById("name").innerText=name;
+    }
+</script>
+<footer th:replace="~{layout :: footer}"></footer>
+<th:block th:replace="~{layout::bot-bootstrap}"></th:block>
+</body>
+</html>
