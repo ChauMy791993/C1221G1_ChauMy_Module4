@@ -20,10 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72364d22-5904-4e16-a1ed-527dc3f2b851" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../ss6_spring_data_jpa/bai_tap/blog_spring_data_jpa/src/main/java/com/codegym/controller/BlogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../ss6_spring_data_jpa/bai_tap/blog_spring_data_jpa/src/main/java/com/codegym/repository/IBlogRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../ss6_spring_data_jpa/bai_tap/blog_spring_data_jpa/src/main/java/com/codegym/service/IBlogService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../ss6_spring_data_jpa/bai_tap/blog_spring_data_jpa/src/main/java/com/codegym/service/impl/BlogService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../ss1_tong_quan_spring_mvc/thuc_hanh/customer-management" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss1_tong_quan_spring_mvc/thuc_hanh/customer-management" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../ss2_spring_controller/thuc_hanh/customer-management" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss2_spring_controller/thuc_hanh/customer-management" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app_miusic_hibernate/src/main/java/codegym/repository/impl/SongRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app_miusic_hibernate/src/main/java/codegym/repository/impl/SongRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app_miusic_hibernate/src/main/webapp/WEB-INF/views/delete.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../thuc_hanh/customer-management" beforeDir="false" afterPath="$PROJECT_DIR$/../../thuc_hanh/customer-management" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,6 +81,8 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -185,6 +190,8 @@
       <workItem from="1652088787170" duration="1933000" />
       <workItem from="1652101539044" duration="51000" />
       <workItem from="1652102236636" duration="62000" />
+      <workItem from="1652166352261" duration="35000" />
+      <workItem from="1652176676639" duration="10000" />
     </task>
     <servers />
   </component>
