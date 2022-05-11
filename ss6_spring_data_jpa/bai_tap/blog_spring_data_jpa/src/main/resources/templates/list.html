@@ -6,7 +6,7 @@
     <th:block th:replace="~{layout::top-bootstrap}"></th:block>
 </head>
 <body>
-<h2><a th:href="@{/}">Blog List</a></h2>
+<h2><a th:href="@{/blog}">Blog List</a></h2>
 <div class="notify">
     <div th:if="${message}">
         <h2 th:text="${message}" class="text-success"></h2>
@@ -17,7 +17,7 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
         <button class="btn btn-success"><a th:href="@{/create}" style="color: white">Add New Blog</a></button>
-        <form class="d-flex input-group w-auto" action="/search">
+        <form class="d-flex input-group w-auto" action="/blog">
             <input
                     type="search"
                     class="form-control rounded"
@@ -59,23 +59,27 @@
             <td th:text="${blog.updateDate}"></td>
             <td th:text="${blog.category.name}"></td>
             <td>
-                <button type="button" class="btn btn-warning"><a th:href="@{/edit(id=${blog.id})}" style="color: white">Edit</a></button>
+                <button type="button" class="btn btn-warning"><a th:href="@{/edit(id=${blog.id})}" style="color: white">Edit</a>
+                </button>
             </td>
             <td>
-                <button th:attr="onclick=|deleteModal('${blog.id}', '${blog.blogTitle}')|" type="button" class="btn btn-danger"
+                <button th:attr="onclick=|deleteModal('${blog.id}', '${blog.blogTitle}')|" type="button"
+                        class="btn btn-danger"
                         data-mdb-toggle="modal" data-mdb-target="#exampleModal">
                     Delete
                 </button>
             </td>
             <td>
-                <button type="button" class="btn btn-info"><a th:href="@{/view(id=${blog.id})}" style="color: white">View</a></button>
+                <button type="button" class="btn btn-info"><a th:href="@{/view(id=${blog.id})}" style="color: white">View</a>
+                </button>
             </td>
         </tr>
         </tbody>
     </table>
     <!-- Modal -->
     <form th:action="@{/delete}" method="post">
-        <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+        <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
             <div class="modal-dialog  ">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -84,7 +88,7 @@
                     </div>
                     <div class="modal-body">
                         Bạn có muốn xóa blog này không<br>
-                        <span>Tên: <p id = "name"></p></span>
+                        <span>Tên: <p id="name"></p></span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
@@ -97,12 +101,25 @@
             </div>
         </div>
     </form>
+    <div>
+        <a th:if="${blogList.hasPrevious()}" th:href="@{/blog(page=${blogList.number -1},title =${keyword})}">
+            Previous
+        </a>
+        <span th:text="${blogList.number+1}"></span>
+        /
+        <span th:text="${blogList.totalPages}"></span>
+        <a th:if="${blogList.hasNext()}" th:href="@{/blog(page=${blogList.number + 1},title=${keyword})}">
+            Next
+        </a>
+    </div>
 </div>
 
+
+
 <script>
-    function deleteModal(id,name) {
+    function deleteModal(id, name) {
         document.getElementById("id-del").value = id;
-        document.getElementById("name").innerText=name;
+        document.getElementById("name").innerText = name;
     }
 </script>
 <footer th:replace="~{layout :: footer}"></footer>
