@@ -74,9 +74,12 @@ public class BlogController {
         return "redirect:/blog";
     }
 
+
+}
+
+
 //    @GetMapping("/search")
 //    public String searchBlog(Model model, @RequestParam String title) {
 //        model.addAttribute("blogList", iBlogService.findAllByBlogTitle(title));
 //        return "list";
 //    }
-}
