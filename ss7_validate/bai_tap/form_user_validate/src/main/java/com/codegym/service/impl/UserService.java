@@ -10,15 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService implements IUserService {
-
     @Autowired
     private IUserRepository iUserRepository;
 
     @Override
     public Page<User> findAllByFirstNameContaining(String firstName, Pageable pageable) {
-//
-//        firstName = "%"+firstName+"%";
-//        return this.iUserRepository.findAllByFistName(firstName,pageable);
         return iUserRepository.findAllByFirstNameContaining(firstName, pageable);
     }
 

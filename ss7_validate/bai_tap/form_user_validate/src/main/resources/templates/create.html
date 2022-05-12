@@ -12,11 +12,12 @@
     </a>
 </p>
 <div id="form">
-    <form action="/save" method="post" th:object="${user}">
+    <form th:action="@{/save}" method="post" th:object="${userDto}">
         <input type="hidden" th:field="*{id}"/>
         <div>
             <label>First Name :</label>
             <input type="text" th:field="*{firstName}"/>
+            <p style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{fisrtName}"></p>
         </div>
         <div>
             <label>Last Name :</label>

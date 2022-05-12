@@ -1,25 +1,24 @@
 package com.codegym.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String phone;
-    private int age;
+    @Column(columnDefinition ="Date")
+    private String age;
     private String email;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String phone, int age, String email) {
+    public User(String firstName, String lastName, String phone, String age, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -27,11 +26,11 @@ public class User {
         this.email = email;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -59,11 +58,11 @@ public class User {
         this.phone = phone;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

@@ -1,13 +1,10 @@
-package com.codegym.service;
+package com.codegym.repository;
 
 import com.codegym.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface IUserService {
+public interface IUserRepository extends JpaRepository<User,Integer> {
     Page<User> findAllByFirstNameContaining(String firstName, Pageable pageable);
-
-    void save(User user);
 }
