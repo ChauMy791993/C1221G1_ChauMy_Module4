@@ -6,7 +6,7 @@
     <th:block th:replace="~{layout::top-bootstrap}"></th:block>
 </head>
 <body>
-<h2><a th:href="@{/user}">User List</a></h2>
+<h2><a th:href="@{/}">Song List</a></h2>
 <div class="notify">
     <div th:if="${message}">
         <h2 th:text="${message}" class="text-success"></h2>
@@ -16,19 +16,19 @@
 
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-        <a class="btn btn-success" th:href="@{/create}" style="color: white">Add New User</a>
-        <form class="d-flex input-group w-auto" action="/user">
-            <input
-                    type="search"
-                    class="form-control rounded"
-                    placeholder="Search"
-                    aria-label="Search"
-                    aria-describedby="search-addon"
+        <a class="btn btn-success" th:href="@{/create}" style="color: white">Add New Song</a>
+<!--        <form class="d-flex input-group w-auto" action="/user">-->
+<!--            <input-->
+<!--                    type="search"-->
+<!--                    class="form-control rounded"-->
+<!--                    placeholder="Search"-->
+<!--                    aria-label="Search"-->
+<!--                    aria-describedby="search-addon"-->
 
-                    name="firstName"
-            />
-            <input class="btn btn-info" type="submit" value="Search">
-        </form>
+<!--                    name="firstName"-->
+<!--            />-->
+<!--            <input class="btn btn-info" type="submit" value="Search">-->
+<!--        </form>-->
     </div>
 </nav>
 
@@ -38,37 +38,35 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First name</th>
-            <th scope="col">Last name</th>
-            <th scope="col">Phone</th>
-            <th scope="col">age</th>
-            <th scope="col">email</th>
+            <th scope="col">Song name</th>
+            <th scope="col">Singer name</th>
+            <th scope="col">Type music</th>
+            <th scope="col">file music</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
             <th scope="col">View</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user,lopp : ${userList}">
+        <tr th:each="song,lopp : ${songList}">
             <td scope="row" th:text="${lopp.count}"></td>
-            <td th:text="${user.firstName}"></td>
-            <td th:text="${user.lastName}"></td>
-            <td th:text="${user.phone}"></td>
-            <td th:text="${user.age}"></td>
-            <td th:text="${user.email}"></td>
+            <td th:text="${song.nameSong}"></td>
+            <td th:text="${song.singerName}"></td>
+            <td th:text="${song.typeMusic}"></td>
+            <td th:text="${song.fileMusic}"></td>
             <td>
-                <button type="button" class="btn btn-warning"><a th:href="@{/edit(id=${user.id})}" style="color: white">Edit</a>
+                <button type="button" class="btn btn-warning"><a th:href="@{/edit(id=${song.id})}" style="color: white">Edit</a>
                 </button>
             </td>
             <td>
-                <button th:attr="onclick=|deleteModal('${user.id}', '${user.firstName}')|" type="button"
+                <button th:attr="onclick=|deleteModal('${song.id}', '${song.nameSong}')|" type="button"
                         class="btn btn-danger"
                         data-mdb-toggle="modal" data-mdb-target="#exampleModal">
                     Delete
                 </button>
             </td>
             <td>
-                <button type="button" class="btn btn-info"><a th:href="@{/view(id=${user.id})}" style="color: white">View</a>
+                <button type="button" class="btn btn-info"><a th:href="@{/view(id=${song.id})}" style="color: white">View</a>
                 </button>
             </td>
         </tr>
@@ -99,17 +97,17 @@
             </div>
         </div>
     </form>
-    <div>
-        <a th:if="${userList.hasPrevious()}" th:href="@{/user(page=${userList.number -1},firstName =${keyword})}">
-            Previous
-        </a>
-        <span th:text="${userList.number+1}"></span>
-        /
-        <span th:text="${userList.totalPages}"></span>
-        <a th:if="${userList.hasNext()}" th:href="@{/user(page=${userList.number + 1},firstName=${keyword})}">
-            Next
-        </a>
-    </div>
+<!--    <div>-->
+<!--        <a th:if="${userList.hasPrevious()}" th:href="@{/user(page=${userList.number -1},firstName =${keyword})}">-->
+<!--            Previous-->
+<!--        </a>-->
+<!--        <span th:text="${userList.number+1}"></span>-->
+<!--        /-->
+<!--        <span th:text="${userList.totalPages}"></span>-->
+<!--        <a th:if="${userList.hasNext()}" th:href="@{/user(page=${userList.number + 1},firstName=${keyword})}">-->
+<!--            Next-->
+<!--        </a>-->
+<!--    </div>-->
 </div>
 
 

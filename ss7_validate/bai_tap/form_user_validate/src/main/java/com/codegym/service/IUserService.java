@@ -1,11 +1,11 @@
 package com.codegym.service;
 
-import com.codegym.model.User;
+import com.codegym.model.Users;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IUserService {
-    Page<User> findAllByFirstNameContaining(String firstName, Pageable pageable);
+    Page<Users> findAllByFirstNameContaining(String firstName, Pageable pageable);
 
-    void save(User user);
+    void save(Users user);
 }

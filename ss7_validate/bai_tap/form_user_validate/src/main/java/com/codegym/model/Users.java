@@ -1,24 +1,22 @@
 package com.codegym.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-public class User {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String firstName;
     private String lastName;
     private String phone;
-    @Column(columnDefinition ="Date")
     private String age;
     private String email;
 
-    public User() {
+    public Users() {
     }
 
-    public User(String firstName, String lastName, String phone, String age, String email) {
+    public Users(String firstName, String lastName, String phone, String age, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;

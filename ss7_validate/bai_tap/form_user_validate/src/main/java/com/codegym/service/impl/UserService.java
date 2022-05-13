@@ -1,6 +1,6 @@
 package com.codegym.service.impl;
 
-import com.codegym.model.User;
+import com.codegym.model.Users;
 import com.codegym.repository.IUserRepository;
 import com.codegym.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ public class UserService implements IUserService {
     private IUserRepository iUserRepository;
 
     @Override
-    public Page<User> findAllByFirstNameContaining(String firstName, Pageable pageable) {
+    public Page<Users> findAllByFirstNameContaining(String firstName, Pageable pageable) {
         return iUserRepository.findAllByFirstNameContaining(firstName, pageable);
     }
 
     @Override
-    public void save(User user) {
+    public void save(Users user) {
         iUserRepository.save(user);
     }
 }

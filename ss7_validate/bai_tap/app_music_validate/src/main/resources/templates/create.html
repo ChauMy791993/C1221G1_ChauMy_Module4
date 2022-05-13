@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="~{layout::top-bootstrap}"></th:block>
+</head>
+<body>
+<h3>Create New User</h3>
+<p>
+    <a th:href="@{/}">
+        Back to Song list
+    </a>
+</p>
+<div id="form">
+    <form action="/save" method="post" th:object="${song}">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Song Name :</label>
+            <input type="text" th:field="*{nameSong}"/>
+<!--            <p style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>-->
+        </div>
+        <div>
+            <label>Singer Name :</label>
+            <input type="text" th:field="*{singerName}"/>
+<!--            <p style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>-->
+        </div>
+        <div>
+            <label>type music :</label>
+            <input type="text" th:field="*{typeMusic}"/>
+<!--            <p style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>-->
+        </div>
+        <div>
+            <label>file music :</label>
+            <input type="text" th:field="*{fileMusic}"/>
+<!--            <p style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>-->
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+<th:block th:replace="~{layout::bot-bootstrap}"></th:block>
+</body>
+</html>

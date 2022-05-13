@@ -1,7 +1,7 @@
 package com.codegym.controller;
 
-import com.codegym.dto.UserDto;
-import com.codegym.model.User;
+import com.codegym.dto.UsersDto;
+import com.codegym.model.Users;
 import com.codegym.service.IUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,20 +37,20 @@ public class UserController {
 
     @GetMapping("/create")
     public String saveForm(Model model) {
-        model.addAttribute("userDto", new UserDto());
+        model.addAttribute("usersDto", new UsersDto());
         return "create";
     }
 
     @PostMapping("/save")
-    public String saveUser(@ModelAttribute @Validated UserDto userDto, BindingResult bindingResult,Model model) {
-        new UserDto().validate(userDto,bindingResult);
-        if (bindingResult.hasFieldErrors()){
+    public String saveUser(@Validated UsersDto usersDto, BindingResult bindingResult, Model model) {
+        new UsersDto().validate(usersDto, bindingResult);
+        if (bindingResult.hasFieldErrors()) {
             return "create";
-        }else {
-            User user = new User();
-            BeanUtils.copyProperties(userDto,user);
-            iUserService.save(user);
-            model.addAttribute("message", "register" + user.getFirstName() + " " + user.getLastName() + "successful !");
+        } else {
+            Users users = new Users();
+            BeanUtils.copyProperties(usersDto, users);
+            iUserService.save(users);
+            model.addAttribute("message", "register" + users.getFirstName() + " " + users.getLastName() + "successful !");
             return "redirect:/user";
         }
     }
