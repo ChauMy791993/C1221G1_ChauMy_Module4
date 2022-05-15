@@ -6,29 +6,29 @@ public class ProductDto {
 
     private int id;
 
-    @NotBlank(message = "name.notNull")
-    @Size(min = 1,max = 800,message = "name.limitCharacter800")
-    @Pattern(regexp = "^[\\w]+$",message ="name.mistype" )
+    @NotBlank(message = "{name.notNull}")
+    @Size(min = 1,max = 800,message = "{name.limitCharacter800}")
+    @Pattern(regexp = "^[\\w]+$",message ="{name.mistype}" )
     private String name;
 
-    @NotBlank(message = "price.notNull")
-    @PositiveOrZero(message ="price.mistype" )
-    private double price;
+    @NotNull(message = "{price.notNull}")
+    @PositiveOrZero(message ="{price.mistype}" )
+    private Double price;
 
-    @NotBlank(message = "description.notNull")
-    @Size(min = 1,max = 400,message = "description.limitCharacter400")
-    @Pattern(regexp = "^[\\w]+$",message ="description.mistype" )
+    @NotBlank(message = "{description.notNull}")
+    @Size(min = 1,max = 400,message = "{description.limitCharacter400}")
+    @Pattern(regexp = "^[\\w]+$",message ="{description.mistype}" )
     private String description;
 
-    @NotBlank(message = "manufacturer.notNull")
-    @Size(min = 1,max = 600,message = "manufacturer.limitCharacter600")
-    @Pattern(regexp = "^[\\w]+$",message ="manufacturer.mistype" )
+    @NotBlank(message = "{manufacturer.notNull}")
+    @Size(min = 1,max = 600,message = "{manufacturer.limitCharacter600}")
+    @Pattern(regexp = "^[\\w]+$",message ="{manufacturer.mistype}" )
     private String manufacturer;
 
     public ProductDto() {
     }
 
-    public ProductDto(String name, double price, String description, String manufacturer) {
+    public ProductDto(String name, Double price, String description, String manufacturer) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -51,11 +51,11 @@ public class ProductDto {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

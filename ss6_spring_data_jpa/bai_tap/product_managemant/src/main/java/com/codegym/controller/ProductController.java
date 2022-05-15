@@ -26,7 +26,7 @@ public class ProductController {
     private IProductService iProductService;
 
     @GetMapping(value = "/")
-    public String getList(Model model, @PageableDefault(value = 2) Pageable pageable,
+    public String getList(Model model, @PageableDefault(value = 3) Pageable pageable,
                           @RequestParam Optional<String> name, RedirectAttributes redirectAttributes) {
         String keywordVal = name.orElse("");
         model.addAttribute("productList", iProductService.findAllByNameContaining(keywordVal,pageable));
