@@ -11,7 +11,7 @@ public class Book {
     private String nameBook;
     private String author;
     private Integer quantity;
-    @OneToMany(mappedBy = "books")
+    @OneToMany(mappedBy = "book")
     private List<BorrowBookCode> borrowBookCodeList;
 
     public Book() {

@@ -9,7 +9,7 @@ public class BorrowBookCode {
     private Integer id;
     private String code;
     @ManyToOne
-    @JoinColumn(name = "id_book",referencedColumnName = "id")
+    @JoinColumn(name = "book_id",referencedColumnName = "id")
     private Book book;
 
     public BorrowBookCode() {
