@@ -44,6 +44,7 @@
             <th scope="col">Price</th>
             <th scope="col">Description</th>
             <th scope="col">Manufacturer</th>
+            <th scope="col">Type Product</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
             <th scope="col">View</th>
@@ -57,6 +58,7 @@
             <td th:text="${product.price}"></td>
             <td th:text="${product.description}"></td>
             <td th:text="${product.manufacturer}"></td>
+            <td th:text="${product.typeProduct.nameTypeProduct}"></td>
             <td>
                 <button type="button"><a th:href="@{/edit(id=${product.id})}">Edit</a></button>
             </td>

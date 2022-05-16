@@ -8,27 +8,31 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private Double price;
     private String description;
     private String manufacturer;
+    @ManyToOne
+    @JoinColumn(name = "type_id", referencedColumnName = "id")
+    private TypeProduct typeProduct;
 
     public Product() {
     }
 
-    public Product(String name, Double price, String description, String manufacturer) {
+    public Product(String name, Double price, String description, String manufacturer, TypeProduct typeProduct) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.manufacturer = manufacturer;
+        this.typeProduct = typeProduct;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -62,5 +66,13 @@ public class Product {
 
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    public TypeProduct getTypeProduct() {
+        return typeProduct;
+    }
+
+    public void setTypeProduct(TypeProduct typeProduct) {
+        this.typeProduct = typeProduct;
     }
 }

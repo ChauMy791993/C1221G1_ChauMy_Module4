@@ -4,6 +4,7 @@ package com.codegym.controller;
 import com.codegym.dto.ProductDto;
 import com.codegym.model.Product;
 import com.codegym.service.IProductService;
+import com.codegym.service.ITypeProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,8 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     private IProductService iProductService;
+    @Autowired
+    private ITypeProductService iTypeProductService;
 
     @GetMapping(value = "/")
     public String getList(Model model, @PageableDefault(value = 3) Pageable pageable,
@@ -38,6 +41,7 @@ public class ProductController {
     @GetMapping(value = "/create")
     public String createForm(Model model) {
         model.addAttribute("productDto", new ProductDto());
+        model.addAttribute("typeProduct",iTypeProductService.findAll());
         return "create";
     }
 
@@ -72,6 +76,7 @@ public class ProductController {
     @GetMapping("/edit")
     public String editFrom(Model model, int id) {
         model.addAttribute("product", iProductService.findById(id));
+        model.addAttribute("typeProduct",iTypeProductService.findAll());
         return "edit";
     }
 
