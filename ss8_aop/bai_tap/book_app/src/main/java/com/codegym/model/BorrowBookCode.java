@@ -11,13 +11,15 @@ public class BorrowBookCode {
     @ManyToOne
     @JoinColumn(name = "book_id",referencedColumnName = "id")
     private Book book;
+    private boolean status;
 
     public BorrowBookCode() {
     }
 
-    public BorrowBookCode(String code, Book book) {
+    public BorrowBookCode(String code, Book book, boolean status) {
         this.code = code;
         this.book = book;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -42,5 +44,13 @@ public class BorrowBookCode {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
