@@ -36,19 +36,19 @@ public class ProductController {
     @GetMapping("/add/{id}")
     public String addToCard(@PathVariable Integer id, @SessionAttribute("cart") CartDto cart,
                             @RequestParam("action") String action) {
-        Optional<Product> productOptional = Optional.ofNullable(iProductService.findById(id));
-        if (!productOptional.isPresent()) {
+       Product productOptional = iProductService.findById(id);
+        if (productOptional==null) {
             return "/error";
         }
-        ProductDto productDto = null;
+
+        ProductDto productDto = new ProductDto();
+        BeanUtils.copyProperties(productOptional, productDto);
+        cart.addProduct(productDto);
         if (action.equals("show")) {
-            productDto = new ProductDto();
-            BeanUtils.copyProperties(productOptional.get(), productDto);
-            cart.minusProduct(productDto);
             return "redirect:/shopping-cart";
         }
-        cart.minusProduct(productDto);
-        return "redirect:/shop";
+
+        return "redirect:/";
     }
     @GetMapping("/{id}/view")
     public String view (@PathVariable int id,Model model){
