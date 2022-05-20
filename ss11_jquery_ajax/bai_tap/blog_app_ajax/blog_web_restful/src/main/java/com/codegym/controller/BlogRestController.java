@@ -32,14 +32,12 @@ public class BlogRestController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<Blog>> findBlogById(@PathVariable Integer id) {
+    public ResponseEntity<Blog> findBlogById(@PathVariable Integer id) {
         Blog blog = iBlogService.findById(id);
-        List<Blog> blogs = new ArrayList<>();
-        blogs.add(blog);
         if (blog == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(blogs, HttpStatus.OK);
+        return new ResponseEntity<>(blog, HttpStatus.OK);
     }
 
     @GetMapping("/category/{id}")

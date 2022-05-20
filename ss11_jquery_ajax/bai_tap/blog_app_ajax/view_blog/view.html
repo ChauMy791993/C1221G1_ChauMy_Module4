@@ -139,16 +139,16 @@
                 type: "GET", //GET, DELETE, PUT...
                 url: "http://localhost:8080/blogRest/" + id,
                 success: function (blog) {
+                    console.log(blog)
                     let outHTML = "";
                     let count = 1;
-                    for (let blogObj of blog.length) {
                         outHTML += `<tr>
                                     <td>${count++}</td>
-                                    <td>${blogObj.id}</td>
-                                    <td>${blogObj.blogTitle}</td>
-                                    <td>${blogObj.blogAuthor}</td>
-                                    <td>${blogObj.blogContent}</td>
-                                    <td>${blogObj.updateDate}</td>
+                                    <td>${blog.id}</td>
+                                    <td>${blog.blogTitle}</td>
+                                    <td>${blog.blogAuthor}</td>
+                                    <td>${blog.blogContent}</td>
+                                    <td>${blog.updateDate}</td>
                                     <td>
                                         <a href="#">View</a>
                                     </td>
@@ -159,7 +159,6 @@
                                         <a href="#">Delete</a>
                                     </td>
                                 </tr>`;
-                    }
 
                     $("#bodyBlog").html(outHTML);
                 },
