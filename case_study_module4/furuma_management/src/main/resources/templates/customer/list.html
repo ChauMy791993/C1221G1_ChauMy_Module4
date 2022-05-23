@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace ="~{layout::top-bootstrap}"></th:block>
+</head>
+<body>
+<h2><a th:href="@{/customer/list}">Customer List</a></h2>
+<div class="notify">
+    <div th:if="${message}">
+        <span th:text="${message}" class="text-success"></span>
+    </div>
+</div>
+
+
+
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <button><a th:href="@{/customer/create}">Add New Customer</a></button>
+        <form class="d-flex input-group w-auto" action="/customer/list">
+            <input
+                    type="search"
+                    class="form-control rounded"
+                    placeholder="Search"
+                    aria-label="Search"
+                    aria-describedby="search-addon"
+
+                    name="customerName"
+            />
+            <input class="btn btn-info" type="submit" value="Search">
+        </form>
+    </div>
+</nav>
+
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Id_Card</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+            <th scope="col">Customer_Type</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Detail</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer,lopp : ${customerList}">
+            <td scope="row" th:text="${lopp.count}" ></td>
+            <td th:text="${customer.customerId}"></td>
+            <td th:text="${customer.customerName}"></td>
+            <td th:text="${customer.customerDateOfBirth}"></td>
+            <td th:if="${customer.customerGender == 0}" th:text="Nữ"></td>
+            <td th:if="${customer.customerGender == 1}" th:text="Nam"></td>
+            <td th:text="${customer.customerIdCard}"></td>
+            <td th:text="${customer.customerPhone}"></td>
+            <td th:text="${customer.customerEmail}"></td>
+            <td th:text="${customer.customerAddress}"></td>
+            <td th:text="${customer.customerType.customerTypeName}"></td>
+            <td>
+                <button type="button"><a th:href="@{/customer/edit(id=${customer.customerId})}">Edit</a></button>
+            </td>
+            <td>
+                <button th:attr="onclick=|deleteModal('${customer.customerId}', '${customer.customerName}')|" type="button"
+                        data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                    Delete
+                </button>
+            </td>
+            <td>
+                <button type="button"><a th:href="@{/customer/detail(id=${customer.customerId})}">Detail</a></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form th:action="@{/customer/delete}" method="post">
+        <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog  ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Customer</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to delete this customer?<br>
+                        <span>Name: <p id = "name"></p></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                            Close
+                        </button>
+                        <input type="hidden" name="id" id="id-del">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div>
+        <a th:if="${customerList.hasPrevious()}" th:href="@{/customer/list(page=${customerList.number -1},customerName =${keyword})}">
+            Previous
+        </a>
+        <span th:text="${customerList.number+1}"></span>
+        /
+        <span th:text="${customerList.totalPages}"></span>
+        <a th:if="${customerList.hasNext()}" th:href="@{/customer/list(page=${customerList.number + 1},customerName=${keyword})}">
+            Next
+        </a>
+    </div>
+
+    <script>
+        function deleteModal(id,name) {
+            document.getElementById("id-del").value = id;
+            document.getElementById("name").innerText=name;
+        }
+    </script>
+
+</div>
+<footer th:replace="~{layout :: footer}"></footer>
+<th:block th:replace ="~{layout::bot-bootstrap}"></th:block>
+</body>
+</html>

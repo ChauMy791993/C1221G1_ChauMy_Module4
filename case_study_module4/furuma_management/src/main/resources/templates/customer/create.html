@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace ="~{layout::top-bootstrap}"></th:block>
+</head>
+<body>
+<form th:object="${customerDto}" th:method="post" th:action="@{/customer/save}">
+    <fieldset class="w-75 mx-auto">
+        <legend class="text-center my-4"> <span class="text-secondary">Create New Customer</span></legend>
+
+        <div class="form-outline w-25 mx-auto">
+            <input class="form-control" id="name1" type="text" th:field="*{customerName}"/>
+            <label class="form-label" for="name1">Customer Name:</label>
+        </div>
+<!--        <div class="w-25 mx-auto">-->
+<!--            <p class="text-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>-->
+<!--        </div>-->
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="birthday" type="date" th:field="*{customerDateOfBirth}"/>
+            <label class="form-label" for="birthday">Date Of Birth</label>
+        </div>
+<!--        <div class="w-25 mx-auto">-->
+<!--            <p class="text-warning" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>-->
+<!--        </div>-->
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="idCard" type="text" th:field="*{customerIdCard}"/>
+            <label class="form-label" for="idCard">Customer ID Card</label>
+        </div>
+<!--        <div class="w-25 mx-auto">-->
+<!--            <p class="text-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>-->
+<!--        </div>-->
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="phone" type="text" th:field="*{customerPhone}"/>
+            <label class="form-label" for="phone">Customer Phone</label>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="email" type="text" th:field="*{customerEmail}"/>
+            <label class="form-label" for="email">Customer Email</label>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="address" type="text" th:field="*{customerAddress}"/>
+            <label class="form-label" for="address">Customer Address</label>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <select class="form-select" th:field="*{customerGender}">
+                <option value="" th:text="--Gender--"></option>
+                <option th:value="0" th:text="Nữ" ></option>
+                <option th:value="1" th:text="Nam" ></option>
+            </select>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <select class="form-select" th:field="*{customerType}">
+                <option value="" th:text="--Type--"></option>
+                <option th:each="type : ${customerType}" th:value="${type.customerTypeId}" th:text="${type.customerTypeName}"></option>
+            </select>
+        </div>
+
+    </fieldset>
+    <div class="text-center">
+        <button type="submit" class="btn btn-secondary mt-4 mx-2">Thêm mới</button>
+        <a class="btn btn-warning mt-4 mx-2" th:href="@{/customer/list}">Hủy thêm mới</a>
+    </div>
+</form>
+
+<th:block th:replace ="~{layout::bot-bootstrap}"></th:block>
+</body>
+</html>
