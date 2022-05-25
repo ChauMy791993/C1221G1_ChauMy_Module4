@@ -15,9 +15,17 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private ICustomerRepository iCustomerRepository;
 
+
     @Override
-    public Page<Customer> findAllByCustomerNameContaining(String customerName, Pageable pageable) {
-        return iCustomerRepository.findAllByCustomerNameContaining(customerName, pageable);
+    public Page<Customer> findAllByCustomer
+            (String customerName, String customerAddress, String customerTypeId, Pageable pageable) {
+        if (customerTypeId.equals("")) {
+            return iCustomerRepository.findAllByCustomerNameContainingAndCustomerAddressContaining
+                    (customerName, customerAddress, pageable);
+        } else {
+            return iCustomerRepository.findAllByCustomerNameContainingAndCustomerAddressContainingAndCustomerType_CustomerTypeId
+                    (customerName, customerAddress, Integer.parseInt(customerTypeId), pageable);
+        }
     }
 
     @Override

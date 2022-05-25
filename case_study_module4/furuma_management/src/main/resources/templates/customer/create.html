@@ -6,6 +6,7 @@
     <th:block th:replace ="~{layout::top-bootstrap}"></th:block>
 </head>
 <body>
+<th:block th:replace="~{layout::header-furama}"></th:block>
 <form th:object="${customerDto}" th:method="post" th:action="@{/customer/save}">
     <fieldset class="w-75 mx-auto">
         <legend class="text-center my-4"> <span class="text-secondary">Create New Customer</span></legend>
@@ -59,17 +60,22 @@
         <div class="form-outline w-25 mx-auto my-4">
             <select class="form-select" th:field="*{customerType}">
                 <option value="" th:text="--Type--"></option>
-                <option th:each="type : ${customerType}" th:value="${type.customerTypeId}" th:text="${type.customerTypeName}"></option>
+                <option th:each="type : ${customerTypeList}" th:value="${type.customerTypeId}" th:text="${type.customerTypeName}"></option>
             </select>
         </div>
 
     </fieldset>
     <div class="text-center">
-        <button type="submit" class="btn btn-secondary mt-4 mx-2">Save</button>
-        <a class="btn btn-warning mt-4 mx-2" th:href="@{/customer/list}">Cancel</a>
+        <button type="submit" class="btn btn-success mt-4 mx-2">Save</button>
+        <button type="reset" class="btn btn-warning mt-4 mx-2">Reset</button>
+    </div>
+
+    <div class="text-center">
+        <a class="btn btn-info mt-4 mx-2" th:href="@{/customer/list}">Return Customer list</a>
     </div>
 </form>
-
+<br>
+<th:block th:replace="~{layout::footer-furama}"></th:block>
 <th:block th:replace ="~{layout::bot-bootstrap}"></th:block>
 </body>
 </html>

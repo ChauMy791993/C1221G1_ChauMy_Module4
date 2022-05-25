@@ -6,7 +6,7 @@
     <th:block th:replace="~{layout::top-bootstrap}"></th:block>
 </head>
 <body>
-
+<th:block th:replace="~{layout::header-furama}"></th:block>
 
 <div class="card w-50 mx-auto mt-4">
     <div class="card-body">
@@ -48,12 +48,12 @@
                 Type:
                 <span class="card-text text-danger" th:text="*{customer.customerType.customerTypeName}"></span>
             </div>
-            <a th:href="@{/customer/list}" class="btn btn-secondary">Trở về</a>
+            <a th:href="@{/customer/list}" class="btn btn-secondary">Return List</a>
         </fieldset>
     </div>
 </div>
-
-
+<br>
+<th:block th:replace="~{layout::footer-furama}"></th:block>
 <th:block th:replace="~{layout::bot-bootstrap}"></th:block>
 </body>
 </html>

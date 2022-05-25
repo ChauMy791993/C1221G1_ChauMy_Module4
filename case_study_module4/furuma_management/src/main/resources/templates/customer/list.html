@@ -6,81 +6,141 @@
     <th:block th:replace="~{layout::top-bootstrap}"></th:block>
 </head>
 <body>
-<h2><a th:href="@{/customer/list}">Customer List</a></h2>
-<div class="notify">
-    <div th:if="${message}">
-        <span th:text="${message}" class="text-success"></span>
+<th:block th:replace="~{layout::header-furama}"></th:block>
+<div class="container-fluid">
+
+    <h2 class="text-center"><a th:href="@{/customer/list}">Customer List</a></h2>
+    <div class="notify">
+        <div th:if="${message}">
+            <h1 th:text="${message}" class="text-success text-center"></h1>
+        </div>
     </div>
-</div>
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="btn btn-primary" style="background-color: #55acee;" th:href="@{/customer/create}" role="button">
+                Add New Customer
+            </a>
+            <form class="d-flex input-group w-auto" action="/customer/list">
+                <div class="form-outline my-2 col-3 mx-3">
+                    <input type="text" id="searchName" class="form-control" name="customerName"/>
+                    <label class="form-label" for="searchName">Search By Name</label>
+                </div>
+                <div class="form-outline my-2 col-3 me-2">
+                    <input type="text" id="searchAddress" class="form-control" name="customerAddress"/>
+                    <label class="form-label" for="searchAddress">Search By Address</label>
+                </div>
+                <div class="form-outline my-2 col-3 mx-2">
+                    <select id="searchType" class="form-select" name="customerType">
+                        <option value="">--Customer type--</option>
+                        <option th:each="customerType : ${customerTypeList}"
+                                th:value="${customerType.customerTypeId}"
+                                th:text="${customerType.customerTypeName}">
+                        </option>
+                    </select>
+                </div>
+                <input class="btn btn-info my-2" type="submit" value="Search">
+            </form>
+        </div>
+    </nav>
 
 
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-        <button><a th:href="@{/customer/create}">Add New Customer</a></button>
-        <form class="d-flex input-group w-auto" action="/customer/list">
-            <input
-                    type="search"
-                    class="form-control rounded"
-                    placeholder="Search"
-                    aria-label="Search"
-                    aria-describedby="search-addon"
-
-                    name="customerName"
-            />
-            <input class="btn btn-info" type="submit" value="Search">
-        </form>
+    <div>
+        <table class="table table-striped mx-auto w-75">
+            <thead>
+            <tr class="table-warning">
+                <th>#</th>
+                <th>Name</th>
+                <th>Birthday</th>
+                <th>Gender</th>
+                <th>Id_Card</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Customer_Type</th>
+                <th colspan="3" class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer,lopp : ${customerList}">
+                <td th:text="${lopp.count}"></td>
+                <td th:text="${customer.customerName}"></td>
+                <td th:text="${customer.customerDateOfBirth}"></td>
+                <td th:if="${customer.customerGender == 0}" th:text="Nữ"></td>
+                <td th:if="${customer.customerGender == 1}" th:text="Nam"></td>
+                <td th:text="${customer.customerIdCard}"></td>
+                <td th:text="${customer.customerPhone}"></td>
+                <td th:text="${customer.customerEmail}"></td>
+                <td th:text="${customer.customerAddress}"></td>
+                <td th:text="${customer.customerType.customerTypeName}"></td>
+                <td>
+                    <a type="button" class="btn btn-warning"
+                       th:href="@{/customer/edit(id=${customer.customerId})}">Edit</a>
+                </td>
+                <td>
+                    <a th:attr="onclick=|deleteModal('${customer.customerId}', '${customer.customerName}')|"
+                       type="button"
+                       class="btn btn-danger"
+                       data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                        Delete
+                    </a>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-info"
+                       th:href="@{/customer/detail(id=${customer.customerId})}">Detail</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-</nav>
 
+    <!--<div class="container">-->
+    <!--    <table class="table w-75 mx-auto">-->
+    <!--        <thead>-->
+    <!--        <tr class="table-warning">-->
+    <!--            <th>#</th>-->
+    <!--            <th>Name</th>-->
+    <!--            <th>Birthday</th>-->
+    <!--            <th>Gender</th>-->
+    <!--            <th>Id_Card</th>-->
+    <!--            <th>Phone</th>-->
+    <!--            <th>Email</th>-->
+    <!--            <th>Address</th>-->
+    <!--            <th>Customer_Type</th>-->
+    <!--            <th colspan="3">Action</th>-->
+    <!--        </tr>-->
+    <!--        </thead>-->
+    <!--        <tbody>-->
+    <!--        <tr th:each="customer,lopp : ${customerList}">-->
+    <!--            <td scope="row" th:text="${lopp.count}"></td>-->
+    <!--            <td th:text="${customer.customerName}"></td>-->
+    <!--            <td th:text="${customer.customerDateOfBirth}"></td>-->
+    <!--            <td th:if="${customer.customerGender == 0}" th:text="Nữ"></td>-->
+    <!--            <td th:if="${customer.customerGender == 1}" th:text="Nam"></td>-->
+    <!--            <td th:text="${customer.customerIdCard}"></td>-->
+    <!--            <td th:text="${customer.customerPhone}"></td>-->
+    <!--            <td th:text="${customer.customerEmail}"></td>-->
+    <!--            <td th:text="${customer.customerAddress}"></td>-->
+    <!--            <td th:text="${customer.customerType.customerTypeName}"></td>-->
+    <!--            <td>-->
+    <!--                <a type="button" class="btn btn-warning" th:href="@{/customer/edit(id=${customer.customerId})}">Edit</a>-->
+    <!--            </td>-->
+    <!--            <td>-->
+    <!--                <a th:attr="onclick=|deleteModal('${customer.customerId}', '${customer.customerName}')|"-->
+    <!--                   type="button"-->
+    <!--                   class="btn btn-danger"-->
+    <!--                   data-mdb-toggle="modal" data-mdb-target="#exampleModal">-->
+    <!--                    Delete-->
+    <!--                </a>-->
+    <!--            </td>-->
+    <!--            <td>-->
+    <!--                <a type="button" class="btn btn-info" th:href="@{/customer/detail(id=${customer.customerId})}">Detail</a>-->
+    <!--            </td>-->
+    <!--        </tr>-->
+    <!--        </tbody>-->
+    <!--    </table>-->
+    <!--</div>-->
 
-<div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Birthday</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Id_Card</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Email</th>
-            <th scope="col">Address</th>
-            <th scope="col">Customer_Type</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-            <th scope="col">Detail</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="customer,lopp : ${customerList}">
-            <td scope="row" th:text="${lopp.count}"></td>
-            <td th:text="${customer.customerId}"></td>
-            <td th:text="${customer.customerName}"></td>
-            <td th:text="${customer.customerDateOfBirth}"></td>
-            <td th:if="${customer.customerGender == 0}" th:text="Nữ"></td>
-            <td th:if="${customer.customerGender == 1}" th:text="Nam"></td>
-            <td th:text="${customer.customerIdCard}"></td>
-            <td th:text="${customer.customerPhone}"></td>
-            <td th:text="${customer.customerEmail}"></td>
-            <td th:text="${customer.customerAddress}"></td>
-            <td th:text="${customer.customerType.customerTypeName}"></td>
-            <td>
-                <button type="button"><a th:href="@{/customer/edit(id=${customer.customerId})}">Edit</a></button>
-            </td>
-            <td>
-                <button th:attr="onclick=|deleteModal('${customer.customerId}', '${customer.customerName}')|"
-                        type="button"
-                        data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-                    Delete
-                </button>
-            </td>
-            <td>
-                <button type="button"><a th:href="@{/customer/detail(id=${customer.customerId})}">Detail</a></button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 
     <form th:action="@{/customer/delete}" method="post">
         <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -110,28 +170,27 @@
     <div aria-label="..." class="w-25 mx-auto">
         <div class="pagination justify-content-center">
             <a th:if="${customerList.hasPrevious()}"
-               th:href="@{/customer/list(page=${customerList.number -1},name =${keyword})}">
+               th:href="@{/customer/list(page=${customerList.number -1},customerName =${keyword1},customerAddress=${keyword2},customerType=${keyword3})}">
                 Previous
             </a>
             <span th:text="${customerList.number+1}"></span>
             /
             <span th:text="${customerList.totalPages}"></span>
             <a th:if="${customerList.hasNext()}"
-               th:href="@{/customer/list(page=${customerList.number + 1},name=${keyword})}">
+               th:href="@{/customer/list(page=${customerList.number + 1},customerName =${keyword1},customerAddress=${keyword2},customerType=${keyword3})}">
                 Next
             </a>
         </div>
     </div>
-
-    <script>
-        function deleteModal(id, name) {
-            document.getElementById("id-del").value = id;
-            document.getElementById("name").innerText = name;
-        }
-    </script>
-
 </div>
+<script>
+    function deleteModal(id, name) {
+        document.getElementById("id-del").value = id;
+        document.getElementById("name").innerText = name;
+    }
+</script>
 <footer th:replace="~{layout :: footer}"></footer>
 <th:block th:replace="~{layout::bot-bootstrap}"></th:block>
+
 </body>
 </html>

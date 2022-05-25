@@ -6,6 +6,7 @@
     <th:block th:replace="~{layout::top-bootstrap}"></th:block>
 </head>
 <body>
+<th:block th:replace ="~{layout::header-furama}"></th:block>
 <form th:object="${facilityDto}" th:method="post" th:action="@{/facility/save}">
     <fieldset class="w-75 mx-auto">
         <legend class="text-center my-4"><span class="text-secondary">Create New Facility</span></legend>
@@ -85,7 +86,7 @@
 <div class="text-center">
     <a class="btn btn-info mt-4 mx-2" th:href="@{/facility/list}">Return facility list</a>
 </div>
-
+<br>
 
 <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -115,7 +116,7 @@
         });
     });
 </script>
-
+<th:block th:replace="~{layout::footer-furama}"></th:block>
 <th:block th:replace="~{layout::bot-bootstrap}"></th:block>
 </body>
 </html>
