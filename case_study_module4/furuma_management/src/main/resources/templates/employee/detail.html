@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="~{layout::top-bootstrap}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{layout::header-furama}"></th:block>
+
+<div class="card w-50 mx-auto mt-4">
+    <div class="card-body">
+        <fieldset class="w-50 mx-auto">
+            <legend class="card-title text-info">Detail Of Customer</legend>
+            <div class="text-danger">
+                <input type="hidden" th:field="*{customer.customerId}"/>
+            </div>
+            <div>
+                Name:
+                <span class="card-text text-danger" th:text="*{customer.customerName}"></span>
+            </div>
+            <div>
+                Date Of Birth:
+                <span class="card-text text-danger" th:text="*{customer.customerDateOfBirth}"></span>
+            </div>
+            <div>
+                Gender
+                <span class="card-text text-danger" th:if="*{customer.customerGender == 0}" th:text="Nữ"></span>
+                <span class="card-text text-danger" th:if="*{customer.customerGender == 1}" th:text="Nam"></span>
+            </div>
+            <div>
+                Id Card:
+                <span class="card-text text-danger" th:text="*{customer.customerIdCard}"></span>
+            </div>
+            <div>
+                Phone:
+                <span class="card-text text-danger" th:text="*{customer.customerPhone}"></span>
+            </div>
+            <div>
+                Email:
+                <span class="card-text text-danger" th:text="*{customer.customerEmail}"></span>
+            </div>
+            <div>
+                Address:
+                <span class="card-text text-danger" th:text="*{customer.customerAddress}"></span>
+            </div>
+            <div>
+                Type:
+                <span class="card-text text-danger" th:text="*{customer.customerType.customerTypeName}"></span>
+            </div>
+            <a th:href="@{/customer/list}" class="btn btn-secondary">Return List</a>
+        </fieldset>
+    </div>
+</div>
+<br>
+<th:block th:replace="~{layout::footer-furama}"></th:block>
+<th:block th:replace="~{layout::bot-bootstrap}"></th:block>
+</body>
+</html>

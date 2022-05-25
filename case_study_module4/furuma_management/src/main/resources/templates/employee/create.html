@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace ="~{layout::top-bootstrap}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{layout::header-furama}"></th:block>
+<form th:object="${employeeDto}" th:method="post" th:action="@{/employee/save}">
+    <fieldset class="w-75 mx-auto">
+        <legend class="text-center my-4"> <span class="text-secondary">Create New Employee</span></legend>
+
+        <div class="form-outline w-25 mx-auto">
+            <input class="form-control" id="name1" type="text" th:field="*{employeeName}"/>
+            <label class="form-label" for="name1">Name:</label>
+        </div>
+<!--        <div class="w-25 mx-auto">-->
+<!--            <p class="text-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>-->
+<!--        </div>-->
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="birthday" type="date" th:field="*{employeeDateOfBirth}"/>
+            <label class="form-label" for="birthday">Date Of Birth</label>
+        </div>
+<!--        <div class="w-25 mx-auto">-->
+<!--            <p class="text-warning" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>-->
+<!--        </div>-->
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="idCard" type="text" th:field="*{employeeIdCard}"/>
+            <label class="form-label" for="idCard">ID Card</label>
+        </div>
+<!--        <div class="w-25 mx-auto">-->
+<!--            <p class="text-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>-->
+<!--        </div>-->
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="salary" type="text" th:field="*{employeeSalary}"/>
+            <label class="form-label" for="salary">Salary</label>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="phone" type="text" th:field="*{employeePhone}"/>
+            <label class="form-label" for="phone">Phone</label>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="email" type="text" th:field="*{employeeEmail}"/>
+            <label class="form-label" for="email">Email</label>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="address" type="text" th:field="*{employeeAddress}"/>
+            <label class="form-label" for="address">Address</label>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <select class="form-select" th:field="*{position}">
+                <option value="" th:text="--select--"></option>
+                <option th:each="type : ${positionList}" th:value="${type.positionId}" th:text="${type.positionName}"></option>
+            </select>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <select class="form-select" th:field="*{educationDegree}">
+                <option value="" th:text="--select--"></option>
+                <option th:each="type : ${educationDegreeList}" th:value="${type.educationDegreeId}" th:text="${type.educationDegreeName}"></option>
+            </select>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <select class="form-select" th:field="*{division}">
+                <option value="" th:text="--select--"></option>
+                <option th:each="type : ${divisionList}" th:value="${type.divisionId}" th:text="${type.divisionName}"></option>
+            </select>
+        </div>
+
+    </fieldset>
+    <div class="text-center">
+        <button type="submit" class="btn btn-success mt-4 mx-2">Save</button>
+        <button type="reset" class="btn btn-warning mt-4 mx-2">Reset</button>
+    </div>
+
+    <div class="text-center">
+        <a class="btn btn-info mt-4 mx-2" th:href="@{/employee/list}">Return Employee list</a>
+    </div>
+</form>
+<br>
+<th:block th:replace="~{layout::footer-furama}"></th:block>
+<th:block th:replace ="~{layout::bot-bootstrap}"></th:block>
+</body>
+</html>

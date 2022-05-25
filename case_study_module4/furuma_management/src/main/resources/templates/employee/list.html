@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="~{layout::top-bootstrap}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{layout::header-furama}"></th:block>
+<div class="container-fluid">
+    <h2 class="text-center"><a th:href="@{/employee/list}">Employee List</a></h2>
+    <div class="notify">
+        <div th:if="${message}">
+            <h1 th:text="${message}" class="text-success text-center"></h1>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="btn btn-primary" style="background-color: #55acee;" th:href="@{/employee/create}" role="button">
+                Add New Employee
+            </a>
+            <form class="d-flex input-group w-auto" action="/employee/list">
+                <div class="form-outline my-2 col-3 mx-3">
+                    <input type="text" id="searchName" class="form-control" name="employeeName"/>
+                    <label class="form-label" for="searchName">Search By Name</label>
+                </div>
+                <div class="form-outline my-2 col-3 me-2">
+                    <input type="text" id="searchAddress" class="form-control" name="employeeAddress"/>
+                    <label class="form-label" for="searchAddress">Search By Address</label>
+                </div>
+                <div class="form-outline my-2 col-3 mx-2">
+                    <select id="searchType" class="form-select" name="position">
+                        <option value="">--Position--</option>
+                        <option th:each="positon : ${positionList}"
+                                th:value="${positon.positionId}"
+                                th:text="${positon.positionName}">
+                        </option>
+                    </select>
+                </div>
+                <input class="btn btn-info my-2" type="submit" value="Search">
+            </form>
+        </div>
+    </nav>
+
+    <div>
+        <table class="table table-striped mx-auto w-75">
+            <thead>
+            <tr class="table-warning">
+                <th>#</th>
+                <th>Name</th>
+                <th>Birthday</th>
+                <th>Id_Card</th>
+                <th>Salary</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Position</th>
+                <th>Education_Degree</th>
+                <th>Division</th>
+                <th colspan="3" class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="employee,lopp : ${employeeList}">
+                <td th:text="${lopp.count}"></td>
+                <td th:text="${employee.employeeName}"></td>
+                <td th:text="${employee.employeeDateOfBirth}"></td>
+                <td th:text="${employee.employeeIdCard}"></td>
+                <td th:text="${employee.employeeSalary}"></td>
+                <td th:text="${employee.employeePhone}"></td>
+                <td th:text="${employee.employeeEmail}"></td>
+                <td th:text="${employee.employeeAddress}"></td>
+                <td th:text="${employee.position.positionName}"></td>
+                <td th:text="${employee.educationDegree.educationDegreeName}"></td>
+                <td th:text="${employee.division.divisionName}"></td>
+                <td>
+                    <a type="button" class="btn btn-warning"
+                       th:href="@{/employee/edit(id=${employee.employeeId})}">Edit</a>
+                </td>
+                <td>
+                    <a th:attr="onclick=|deleteModal('${employee.employeeId}', '${employee.employeeName}')|"
+                       type="button"
+                       class="btn btn-danger"
+                       data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                        Delete
+                    </a>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-info"
+                       th:href="@{/employee/detail(id=${employee.employeeId})}">Detail</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form th:action="@{/employee/delete}" method="post">
+        <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog  ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Employee</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to delete this employee?<br>
+                        <span>Name: <p id="name"></p></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                            Close
+                        </button>
+                        <input type="hidden" name="id" id="id-del">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div aria-label="..." class="w-25 mx-auto">
+        <div class="pagination justify-content-center">
+            <a th:if="${employeeList.hasPrevious()}"
+               th:href="@{/employee/list(page=${employeeList.number -1},name=${keyword1},address=${keyword2},position=${keyword3})}">
+                Previous
+            </a>
+            <span th:text="${employeeList.number+1}"></span>
+            /
+            <span th:text="${employeeList.totalPages}"></span>
+            <a th:if="${employeeList.hasNext()}"
+               th:href="@{/employee/list(page=${employeeList.number + 1},name=${keyword1},address=${keyword2},position=${keyword3})}">
+                Next
+            </a>
+        </div>
+    </div>
+</div>
+<script>
+    function deleteModal(id, name) {
+        document.getElementById("id-del").value = id;
+        document.getElementById("name").innerText = name;
+    }
+</script>
+<footer th:replace="~{layout :: footer}"></footer>
+<th:block th:replace="~{layout::bot-bootstrap}"></th:block>
+
+</body>
+</html>
