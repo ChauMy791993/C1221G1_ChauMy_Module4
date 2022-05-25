@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <th:block th:replace ="~{layout::top-bootstrap}"></th:block>
+    <th:block th:replace="~{layout::top-bootstrap}"></th:block>
 </head>
 <body>
 <h2><a th:href="@{/customer/list}">Customer List</a></h2>
@@ -12,7 +12,6 @@
         <span th:text="${message}" class="text-success"></span>
     </div>
 </div>
-
 
 
 <nav class="navbar navbar-light bg-light">
@@ -34,7 +33,7 @@
 </nav>
 
 
-<div class="container">
+<div>
     <table class="table">
         <thead>
         <tr>
@@ -55,7 +54,7 @@
         </thead>
         <tbody>
         <tr th:each="customer,lopp : ${customerList}">
-            <td scope="row" th:text="${lopp.count}" ></td>
+            <td scope="row" th:text="${lopp.count}"></td>
             <td th:text="${customer.customerId}"></td>
             <td th:text="${customer.customerName}"></td>
             <td th:text="${customer.customerDateOfBirth}"></td>
@@ -70,7 +69,8 @@
                 <button type="button"><a th:href="@{/customer/edit(id=${customer.customerId})}">Edit</a></button>
             </td>
             <td>
-                <button th:attr="onclick=|deleteModal('${customer.customerId}', '${customer.customerName}')|" type="button"
+                <button th:attr="onclick=|deleteModal('${customer.customerId}', '${customer.customerName}')|"
+                        type="button"
                         data-mdb-toggle="modal" data-mdb-target="#exampleModal">
                     Delete
                 </button>
@@ -83,7 +83,8 @@
     </table>
 
     <form th:action="@{/customer/delete}" method="post">
-        <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+        <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
             <div class="modal-dialog  ">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -92,7 +93,7 @@
                     </div>
                     <div class="modal-body">
                         Do you want to delete this customer?<br>
-                        <span>Name: <p id = "name"></p></span>
+                        <span>Name: <p id="name"></p></span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
@@ -105,27 +106,32 @@
             </div>
         </div>
     </form>
-    <div>
-        <a th:if="${customerList.hasPrevious()}" th:href="@{/customer/list(page=${customerList.number -1},customerName =${keyword})}">
-            Previous
-        </a>
-        <span th:text="${customerList.number+1}"></span>
-        /
-        <span th:text="${customerList.totalPages}"></span>
-        <a th:if="${customerList.hasNext()}" th:href="@{/customer/list(page=${customerList.number + 1},customerName=${keyword})}">
-            Next
-        </a>
+
+    <div aria-label="..." class="w-25 mx-auto">
+        <div class="pagination justify-content-center">
+            <a th:if="${customerList.hasPrevious()}"
+               th:href="@{/customer/list(page=${customerList.number -1},name =${keyword})}">
+                Previous
+            </a>
+            <span th:text="${customerList.number+1}"></span>
+            /
+            <span th:text="${customerList.totalPages}"></span>
+            <a th:if="${customerList.hasNext()}"
+               th:href="@{/customer/list(page=${customerList.number + 1},name=${keyword})}">
+                Next
+            </a>
+        </div>
     </div>
 
     <script>
-        function deleteModal(id,name) {
+        function deleteModal(id, name) {
             document.getElementById("id-del").value = id;
-            document.getElementById("name").innerText=name;
+            document.getElementById("name").innerText = name;
         }
     </script>
 
 </div>
 <footer th:replace="~{layout :: footer}"></footer>
-<th:block th:replace ="~{layout::bot-bootstrap}"></th:block>
+<th:block th:replace="~{layout::bot-bootstrap}"></th:block>
 </body>
 </html>

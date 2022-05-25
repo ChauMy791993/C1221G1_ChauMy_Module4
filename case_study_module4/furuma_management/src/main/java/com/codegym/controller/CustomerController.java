@@ -26,12 +26,12 @@ public class CustomerController {
     private ICustomerTypeService iCustomerTypeService;
 
     @GetMapping("/list")
-    public String getList(Model model, @PageableDefault(value = 3) Pageable pageable,
+    public String getListCustomer(Model model, @PageableDefault(value = 3) Pageable pageable,
                           @RequestParam Optional<String> customerName, RedirectAttributes redirectAttributes) {
         String keywordVal = customerName.orElse("");
-        model.addAttribute("customerList",iCustomerService.findAllByCustomerNameContaining(keywordVal,pageable));
-        model.addAttribute("keyword",keywordVal);
-        redirectAttributes.addFlashAttribute("message","");
+        model.addAttribute("customerList", iCustomerService.findAllByCustomerNameContaining(keywordVal, pageable));
+        model.addAttribute("keyword", keywordVal);
+        redirectAttributes.addFlashAttribute("message", "");
         return "/customer/list";
     }
 
@@ -39,27 +39,27 @@ public class CustomerController {
     @GetMapping(value = "/create")
     public String createForm(Model model) {
         model.addAttribute("customerDto", new CustomerDto());
-        model.addAttribute("customerType",iCustomerTypeService.findAll());
+        model.addAttribute("customerType", iCustomerTypeService.findAll());
         return "/customer/create";
     }
 
     @PostMapping(value = "/save")
     public String saveCustomer(@Validated CustomerDto customerDto, BindingResult bindingResult,
-                              RedirectAttributes redirectAttributes) {
-        if(bindingResult.hasFieldErrors()){
+                               RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasFieldErrors()) {
             return "/customer/create";
-        }else {
+        } else {
             Customer customer = new Customer();
-            BeanUtils.copyProperties(customerDto,customer);
+            BeanUtils.copyProperties(customerDto, customer);
             iCustomerService.save(customer);
-            redirectAttributes.addFlashAttribute("message", "Save product successfully");
+            redirectAttributes.addFlashAttribute("message", "Save customer successfully");
             return "redirect:/customer/list";
         }
     }
 
 
     @PostMapping(value = "/delete")
-    public String deleteCustomer(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
+    public String deleteCustomer(Integer id, RedirectAttributes redirectAttributes) {
         Customer customer = iCustomerService.findById(id);
         iCustomerService.delete(customer);
         redirectAttributes.addFlashAttribute("message", "delete successfully");
@@ -72,18 +72,36 @@ public class CustomerController {
         return "/customer/detail";
     }
 
+
     @GetMapping("/edit")
     public String editFrom(Model model, int id) {
-        model.addAttribute("customer", iCustomerService.findById(id));
-        model.addAttribute("customerType",iCustomerTypeService.findAll());
-        return "/customer/edit";
+        Customer customer = iCustomerService.findById(id);
+        if (customer == null) {
+            return "error";
+        } else {
+            CustomerDto customerDto = new CustomerDto();
+            BeanUtils.copyProperties(customer, customerDto);
+            model.addAttribute("customerDto", customerDto);
+            model.addAttribute("customerType", iCustomerTypeService.findAll());
+            return "/customer/edit";
+        }
+
     }
 
+
     @PostMapping("/edit")
-    public String editCustomer(Customer customer, RedirectAttributes redirectAttributes) {
-        iCustomerService.save(customer);
-        redirectAttributes.addFlashAttribute("message", "update successfully");
-        return "redirect:/customer/list";
+    public String editCustomer(@Validated CustomerDto customerDto, BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasFieldErrors()) {
+            return "/customer/edit";
+        } else {
+            Customer customer = new Customer();
+            BeanUtils.copyProperties(customerDto, customer);
+            iCustomerService.save(customer);
+            redirectAttributes.addFlashAttribute("message", "update successfully");
+            return "redirect:/customer/list";
+        }
     }
 
 }
