@@ -1,15 +1,39 @@
 package com.codegym.dto;
 
 import com.codegym.model.CustomerType;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
-public class CustomerDto {
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
+
+public class CustomerDto implements Validator {
     private Integer customerId;
+
+    @NotBlank(message = "{code.notnull}")
+    @Pattern(regexp = "^(KH-)\\d{4}$", message = "{code.mistype}")
+    private String customerCode;
+
+    @NotBlank(message = "{name.notnull}")
+    @Pattern(regexp = "^\\p{Lu}\\p{Ll}+( \\p{Lu}\\p{Ll}*)*$", message = "{name.mistype}")
     private String customerName;
+
+
     private String customerDateOfBirth;
+
+
     private Integer customerGender;
+    @NotBlank(message = "{idCard.notnull}")
+    @Pattern(regexp = "^\\d{9}|\\d{12}", message = "{idCard.mistype}")
     private String customerIdCard;
+    @NotBlank(message = "{phone.notnull}")
+    @Pattern(regexp = "^(090|091|\\(84\\)90|\\(84\\)91)\\d{7}$", message = "{phone.mistype}")
     private String customerPhone;
+    @NotBlank(message = "{email.notnull}")
+    @Pattern(regexp = "^\\w+([.-]?\\w+)*@[a-z]+\\.(\\w+)(\\.\\w{2,3})?$", message = "{email.mistype}")
     private String customerEmail;
+
     private String customerAddress;
     private CustomerType customerType;
 
@@ -97,5 +121,32 @@ public class CustomerDto {
 
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
+    }
+
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        CustomerDto customerDto = (CustomerDto) target;
+        LocalDate now = LocalDate.now();
+        LocalDate eighteenYear = now.minusYears(18);
+        LocalDate hundredYear = now.minusYears(100);
+        if ("".equals(customerDto.customerDateOfBirth)) {
+            errors.rejectValue("customerDateOfBirth", "birthday.notnull", "error default!");
+        } else if (LocalDate.parse(customerDto.customerDateOfBirth).compareTo(eighteenYear) > 0 ||
+                LocalDate.parse(customerDto.customerDateOfBirth).compareTo(hundredYear) < 0) {
+            errors.rejectValue("customerDateOfBirth", "birthday.mistype", "error default!");
+        }
     }
 }

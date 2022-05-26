@@ -2,34 +2,45 @@ package com.codegym.dto;
 
 import com.codegym.model.FacilityType;
 import com.codegym.model.RentType;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
-public class FacilityDto {
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+
+public class FacilityDto implements Validator {
     private Integer facilityId;
+
+    @NotBlank(message = "{code.notnull}")
+    @Pattern(regexp = "^(DV-)\\d{4}$", message = "{facilityCode.mistype}")
+    private String facilityCode;
+
     private String facilityName;
-    private Integer facilityArea;
-    private Double facilityCost;
-    private Integer facilityMaxPeople;
+    @NotBlank(message = "{area.notnull}")
+    @Pattern(regexp = "^[1-9][0-9]*$", message = "{area.mistype}")
+    private String facilityArea;
+
+
+    @NotBlank(message = "{cost.notnull}")
+    @Pattern(regexp = "^[1-9][0-9]*$", message = "{cost.mistype}")
+    private String facilityCost;
+
+    @NotBlank(message = "{maxPeople.notnull}")
+    @Pattern(regexp = "^[1-9][0-9]*$", message = "{maxPeople.mistype}")
+    private String facilityMaxPeople;
+
     private String standardRoom;
     private String descriptionOtherConvenience;
-    private Double poolArea;
-    private Integer numberOfFloors;
+
+    private String poolArea;
+
+    private String numberOfFloors;
     private FacilityType facilityType;
     private RentType rentType;
 
     public FacilityDto() {
-    }
-
-    public FacilityDto(String facilityName, Integer facilityArea, Double facilityCost, Integer facilityMaxPeople, String standardRoom, String descriptionOtherConvenience, Double poolArea, Integer numberOfFloors, FacilityType facilityType, RentType rentType) {
-        this.facilityName = facilityName;
-        this.facilityArea = facilityArea;
-        this.facilityCost = facilityCost;
-        this.facilityMaxPeople = facilityMaxPeople;
-        this.standardRoom = standardRoom;
-        this.descriptionOtherConvenience = descriptionOtherConvenience;
-        this.poolArea = poolArea;
-        this.numberOfFloors = numberOfFloors;
-        this.facilityType = facilityType;
-        this.rentType = rentType;
     }
 
     public Integer getFacilityId() {
@@ -40,6 +51,14 @@ public class FacilityDto {
         this.facilityId = facilityId;
     }
 
+    public String getFacilityCode() {
+        return facilityCode;
+    }
+
+    public void setFacilityCode(String facilityCode) {
+        this.facilityCode = facilityCode;
+    }
+
     public String getFacilityName() {
         return facilityName;
     }
@@ -48,27 +67,27 @@ public class FacilityDto {
         this.facilityName = facilityName;
     }
 
-    public Integer getFacilityArea() {
+    public String getFacilityArea() {
         return facilityArea;
     }
 
-    public void setFacilityArea(Integer facilityArea) {
+    public void setFacilityArea(String facilityArea) {
         this.facilityArea = facilityArea;
     }
 
-    public Double getFacilityCost() {
+    public String getFacilityCost() {
         return facilityCost;
     }
 
-    public void setFacilityCost(Double facilityCost) {
+    public void setFacilityCost(String facilityCost) {
         this.facilityCost = facilityCost;
     }
 
-    public Integer getFacilityMaxPeople() {
+    public String getFacilityMaxPeople() {
         return facilityMaxPeople;
     }
 
-    public void setFacilityMaxPeople(Integer facilityMaxPeople) {
+    public void setFacilityMaxPeople(String facilityMaxPeople) {
         this.facilityMaxPeople = facilityMaxPeople;
     }
 
@@ -88,19 +107,19 @@ public class FacilityDto {
         this.descriptionOtherConvenience = descriptionOtherConvenience;
     }
 
-    public Double getPoolArea() {
+    public String getPoolArea() {
         return poolArea;
     }
 
-    public void setPoolArea(Double poolArea) {
+    public void setPoolArea(String poolArea) {
         this.poolArea = poolArea;
     }
 
-    public Integer getNumberOfFloors() {
+    public String getNumberOfFloors() {
         return numberOfFloors;
     }
 
-    public void setNumberOfFloors(Integer numberOfFloors) {
+    public void setNumberOfFloors(String numberOfFloors) {
         this.numberOfFloors = numberOfFloors;
     }
 
@@ -118,5 +137,28 @@ public class FacilityDto {
 
     public void setRentType(RentType rentType) {
         this.rentType = rentType;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        FacilityDto facilityDto = (FacilityDto) target;
+
+        if (facilityDto.facilityType.getFacilityTypeId() == 1 &&
+                !facilityDto.numberOfFloors.matches("^[1-9][0-9]*$")) {
+            errors.rejectValue("numberOfFloors", "floors.mistype","error default");
+        }
+        if (facilityDto.facilityType.getFacilityTypeId() == 1 &&
+                !facilityDto.poolArea.matches("^[1-9][0-9]*$")) {
+            errors.rejectValue("poolArea","poolArea.mistype","error default");
+        }
+        if (facilityDto.facilityType.getFacilityTypeId()==2 &&
+        !facilityDto.numberOfFloors.matches("^[1-9][0-9]*$")){
+            errors.rejectValue("numberOfFloors","floors.mistype","error default");
+        }
     }
 }

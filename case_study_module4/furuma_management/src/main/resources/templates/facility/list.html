@@ -42,6 +42,7 @@
         <thead>
         <tr class="table-warning">
             <th>#</th>
+            <th>Code</th>
             <th>Name</th>
             <th>Area</th>
             <th>Cost</th>
@@ -49,6 +50,7 @@
             <th>Standard Room</th>
             <th>Description Other Convenience</th>
             <th>Pool Area</th>
+            <th>Number Of Floors</th>
             <th>Facility_Type</th>
             <th>Rent_Type</th>
         </tr>
@@ -56,6 +58,7 @@
         <tbody>
         <tr th:each="facility,lopp : ${facilityList}">
             <td scope="row" th:text="${lopp.count}"></td>
+            <td th:text="${facility.facilityCode}"></td>
             <td th:text="${facility.facilityName}"></td>
             <td th:text="${facility.facilityArea}"></td>
             <td th:text="${facility.facilityCost}"></td>
@@ -63,6 +66,7 @@
             <td th:text="${facility.standardRoom}"></td>
             <td th:text="${facility.descriptionOtherConvenience}"></td>
             <td th:text="${facility.poolArea}"></td>
+            <td th:text="${facility.numberOfFloors}"></td>
             <td th:text="${facility.facilityType.facilityTypeName}"></td>
             <td th:text="${facility.rentType.rentTypeName}"></td>
         </tr>

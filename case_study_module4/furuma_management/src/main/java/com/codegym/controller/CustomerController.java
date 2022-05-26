@@ -62,6 +62,7 @@ public class CustomerController {
     @PostMapping(value = "/save")
     public String saveCustomer(@Validated CustomerDto customerDto, BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
+        new CustomerDto().validate(customerDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return "/customer/create";
         } else {
@@ -110,7 +111,7 @@ public class CustomerController {
     @PostMapping("/edit")
     public String editCustomer(@Validated CustomerDto customerDto, BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
-
+        new CustomerDto().validate(customerDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return "/customer/edit";
         } else {

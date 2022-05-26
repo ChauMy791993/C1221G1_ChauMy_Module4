@@ -2,6 +2,7 @@ package com.codegym.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Customer {
@@ -9,8 +10,9 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerId;
-
+    private String customerCode;
     private String customerName;
+
     private String customerDateOfBirth;
     private Integer customerGender;
     private String customerIdCard;
@@ -21,6 +23,18 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name = "customer_type_id", referencedColumnName = "customerTypeId")
     private CustomerType customerType;
+
+    public List<Contract> getContractList() {
+        return contractList;
+    }
+
+    public void setContractList(List<Contract> contractList) {
+        this.contractList = contractList;
+    }
+
+    @OneToMany(mappedBy = "customer")
+    List<Contract> contractList;
+
 
     public Customer() {
     }
@@ -106,5 +120,12 @@ public class Customer {
 
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
+    }
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
     }
 }

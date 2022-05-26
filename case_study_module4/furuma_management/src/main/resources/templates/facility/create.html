@@ -11,32 +11,42 @@
     <fieldset class="w-75 mx-auto">
         <legend class="text-center my-4"><span class="text-secondary">Create New Facility</span></legend>
 
-        <div class="form-outline w-25 mx-auto">
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="code" type="text" th:field="*{facilityCode}"/>
+            <label class="form-label" for="code">Facility code:</label>
+        </div>
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('facilityCode')}" th:errors="*{facilityCode}"></p>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
             <input class="form-control" id="name1" type="text" th:field="*{facilityName}"/>
             <label class="form-label" for="name1">Facility Name:</label>
         </div>
-        <!--        <div class="w-25 mx-auto">-->
-        <!--            <p class="text-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>-->
-        <!--        </div>-->
+
+
         <div class="form-outline w-25 mx-auto my-4">
             <input class="form-control" id="area" type="text" th:field="*{facilityArea}"/>
             <label class="form-label" for="area">Area</label>
         </div>
-        <!--        <div class="w-25 mx-auto">-->
-        <!--            <p class="text-warning" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>-->
-        <!--        </div>-->
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('facilityArea')}" th:errors="*{facilityArea}"></p>
+        </div>
 
         <div class="form-outline w-25 mx-auto my-4">
             <input class="form-control" id="cost" type="text" th:field="*{facilityCost}"/>
             <label class="form-label" for="cost">Cost</label>
         </div>
-        <!--        <div class="w-25 mx-auto">-->
-        <!--            <p class="text-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>-->
-        <!--        </div>-->
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('facilityCost')}" th:errors="*{facilityCost}"></p>
+        </div>
 
         <div class="form-outline w-25 mx-auto my-4">
             <input class="form-control" id="people" type="text" th:field="*{facilityMaxPeople}"/>
             <label class="form-label" for="people">Max People</label>
+        </div>
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('facilityMaxPeople')}" th:errors="*{facilityMaxPeople}"></p>
         </div>
 
         <div class="form-outline w-25 mx-auto my-4">
@@ -53,10 +63,16 @@
             <input class="form-control" id="pool" type="text" th:field="*{poolArea}"/>
             <label class="form-label" for="pool">Pool Area</label>
         </div>
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('poolArea')}" th:errors="*{poolArea}"></p>
+        </div>
 
         <div class="form-outline w-25 mx-auto my-4" id="input_floors">
             <input class="form-control" id="floors" type="text" th:field="*{numberOfFloors}"/>
             <label class="form-label" for="floors">Number Of Floors</label>
+        </div>
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('numberOfFloors')}" th:errors="*{numberOfFloors}"></p>
         </div>
 
         <div class="form-outline w-25 mx-auto my-4">

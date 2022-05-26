@@ -1,12 +1,14 @@
 package com.codegym.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer facilityId;
+    private String facilityCode;
     private String facilityName;
     private Integer facilityArea;
     private Double facilityCost;
@@ -23,6 +25,17 @@ public class Facility {
     @ManyToOne
     @JoinColumn(name = "facility_type_id", referencedColumnName = "facilityTypeId")
     private FacilityType facilityType;
+
+    @OneToMany(mappedBy = "facility")
+    List<Contract> contractList;
+
+    public List<Contract> getContractList() {
+        return contractList;
+    }
+
+    public void setContractList(List<Contract> contractList) {
+        this.contractList = contractList;
+    }
 
     public Facility() {
     }
@@ -126,5 +139,13 @@ public class Facility {
 
     public void setFacilityType(FacilityType facilityType) {
         this.facilityType = facilityType;
+    }
+
+    public String getFacilityCode() {
+        return facilityCode;
+    }
+
+    public void setFacilityCode(String facilityCode) {
+        this.facilityCode = facilityCode;
     }
 }

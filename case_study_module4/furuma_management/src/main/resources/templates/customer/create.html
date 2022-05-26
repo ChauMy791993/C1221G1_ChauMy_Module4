@@ -11,37 +11,53 @@
     <fieldset class="w-75 mx-auto">
         <legend class="text-center my-4"> <span class="text-secondary">Create New Customer</span></legend>
 
-        <div class="form-outline w-25 mx-auto">
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="code" type="text" th:field="*{customerCode}"/>
+            <label class="form-label" for="code">Customer code:</label>
+        </div>
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('customerCode')}" th:errors="*{customerCode}"></p>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
             <input class="form-control" id="name1" type="text" th:field="*{customerName}"/>
             <label class="form-label" for="name1">Customer Name:</label>
         </div>
-<!--        <div class="w-25 mx-auto">-->
-<!--            <p class="text-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>-->
-<!--        </div>-->
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}"></p>
+        </div>
+
         <div class="form-outline w-25 mx-auto my-4">
             <input class="form-control" id="birthday" type="date" th:field="*{customerDateOfBirth}"/>
             <label class="form-label" for="birthday">Date Of Birth</label>
         </div>
-<!--        <div class="w-25 mx-auto">-->
-<!--            <p class="text-warning" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>-->
-<!--        </div>-->
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('customerDateOfBirth')}" th:errors="*{customerDateOfBirth}"></p>
+        </div>
+
 
         <div class="form-outline w-25 mx-auto my-4">
             <input class="form-control" id="idCard" type="text" th:field="*{customerIdCard}"/>
             <label class="form-label" for="idCard">Customer ID Card</label>
         </div>
-<!--        <div class="w-25 mx-auto">-->
-<!--            <p class="text-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>-->
-<!--        </div>-->
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('customerIdCard')}" th:errors="*{customerIdCard}"></p>
+        </div>
 
         <div class="form-outline w-25 mx-auto my-4">
             <input class="form-control" id="phone" type="text" th:field="*{customerPhone}"/>
             <label class="form-label" for="phone">Customer Phone</label>
         </div>
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('customerPhone')}" th:errors="*{customerPhone}"></p>
+        </div>
 
         <div class="form-outline w-25 mx-auto my-4">
             <input class="form-control" id="email" type="text" th:field="*{customerEmail}"/>
             <label class="form-label" for="email">Customer Email</label>
+        </div>
+        <div class="w-25 mx-auto">
+            <p class="text-warning" th:if="${#fields.hasErrors('customerEmail')}" th:errors="*{customerEmail}"></p>
         </div>
 
         <div class="form-outline w-25 mx-auto my-4">

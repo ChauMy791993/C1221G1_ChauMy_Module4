@@ -16,6 +16,10 @@
                 <input type="hidden" th:field="*{customer.customerId}"/>
             </div>
             <div>
+                code:
+                <span class="card-text text-danger" th:text="*{customer.customerCode}"></span>
+            </div>
+            <div>
                 Name:
                 <span class="card-text text-danger" th:text="*{customer.customerName}"></span>
             </div>

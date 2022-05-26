@@ -50,6 +50,7 @@
             <thead>
             <tr class="table-warning">
                 <th>#</th>
+                <th>Code</th>
                 <th>Name</th>
                 <th>Birthday</th>
                 <th>Gender</th>
@@ -64,6 +65,7 @@
             <tbody>
             <tr th:each="customer,lopp : ${customerList}">
                 <td th:text="${lopp.count}"></td>
+                <td th:text="${customer.customerCode}"></td>
                 <td th:text="${customer.customerName}"></td>
                 <td th:text="${customer.customerDateOfBirth}"></td>
                 <td th:if="${customer.customerGender == 0}" th:text="Nữ"></td>
@@ -93,53 +95,6 @@
             </tbody>
         </table>
     </div>
-
-    <!--<div class="container">-->
-    <!--    <table class="table w-75 mx-auto">-->
-    <!--        <thead>-->
-    <!--        <tr class="table-warning">-->
-    <!--            <th>#</th>-->
-    <!--            <th>Name</th>-->
-    <!--            <th>Birthday</th>-->
-    <!--            <th>Gender</th>-->
-    <!--            <th>Id_Card</th>-->
-    <!--            <th>Phone</th>-->
-    <!--            <th>Email</th>-->
-    <!--            <th>Address</th>-->
-    <!--            <th>Customer_Type</th>-->
-    <!--            <th colspan="3">Action</th>-->
-    <!--        </tr>-->
-    <!--        </thead>-->
-    <!--        <tbody>-->
-    <!--        <tr th:each="customer,lopp : ${customerList}">-->
-    <!--            <td scope="row" th:text="${lopp.count}"></td>-->
-    <!--            <td th:text="${customer.customerName}"></td>-->
-    <!--            <td th:text="${customer.customerDateOfBirth}"></td>-->
-    <!--            <td th:if="${customer.customerGender == 0}" th:text="Nữ"></td>-->
-    <!--            <td th:if="${customer.customerGender == 1}" th:text="Nam"></td>-->
-    <!--            <td th:text="${customer.customerIdCard}"></td>-->
-    <!--            <td th:text="${customer.customerPhone}"></td>-->
-    <!--            <td th:text="${customer.customerEmail}"></td>-->
-    <!--            <td th:text="${customer.customerAddress}"></td>-->
-    <!--            <td th:text="${customer.customerType.customerTypeName}"></td>-->
-    <!--            <td>-->
-    <!--                <a type="button" class="btn btn-warning" th:href="@{/customer/edit(id=${customer.customerId})}">Edit</a>-->
-    <!--            </td>-->
-    <!--            <td>-->
-    <!--                <a th:attr="onclick=|deleteModal('${customer.customerId}', '${customer.customerName}')|"-->
-    <!--                   type="button"-->
-    <!--                   class="btn btn-danger"-->
-    <!--                   data-mdb-toggle="modal" data-mdb-target="#exampleModal">-->
-    <!--                    Delete-->
-    <!--                </a>-->
-    <!--            </td>-->
-    <!--            <td>-->
-    <!--                <a type="button" class="btn btn-info" th:href="@{/customer/detail(id=${customer.customerId})}">Detail</a>-->
-    <!--            </td>-->
-    <!--        </tr>-->
-    <!--        </tbody>-->
-    <!--    </table>-->
-    <!--</div>-->
 
 
     <form th:action="@{/customer/delete}" method="post">
