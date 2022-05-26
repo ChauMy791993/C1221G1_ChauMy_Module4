@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="~{layout::top-bootstrap}"></th:block>
+</head>
+<body>
+<th:block th:replace ="~{layout::header-furama}"></th:block>
+<br>
+<h2 class="text-center"><a th:href="@{/facility/list}">Facility List</a></h2>
+<div class="notify">
+    <div th:if="${message}">
+        <h1 th:text="${message}" class="text-success"></h1>
+    </div>
+</div>
+
+
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="btn btn-primary" style="background-color: #55acee;" th:href="@{/facility/create}" role="button">
+            Add New Facility
+        </a>
+        <form class="d-flex input-group w-auto" action="/facility/list">
+            <input
+                    type="search"
+                    class="form-control rounded"
+                    placeholder="Search"
+                    aria-label="Search"
+                    aria-describedby="search-addon"
+
+                    name="facilityName"
+            />
+            <input class="btn btn-info" type="submit" value="Search">
+        </form>
+    </div>
+</nav>
+
+
+<div>
+    <table class="table table-striped mx-auto w-75">
+        <thead>
+        <tr class="table-warning">
+            <th>#</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Area</th>
+            <th>Cost</th>
+            <th>Max_People</th>
+            <th>Standard Room</th>
+            <th>Description Other Convenience</th>
+            <th>Pool Area</th>
+            <th>Number Of Floors</th>
+            <th>Facility_Type</th>
+            <th>Rent_Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="facility,lopp : ${facilityList}">
+            <td scope="row" th:text="${lopp.count}"></td>
+            <td th:text="${facility.facilityCode}"></td>
+            <td th:text="${facility.facilityName}"></td>
+            <td th:text="${facility.facilityArea}"></td>
+            <td th:text="${facility.facilityCost}"></td>
+            <td th:text="${facility.facilityMaxPeople}"></td>
+            <td th:text="${facility.standardRoom}"></td>
+            <td th:text="${facility.descriptionOtherConvenience}"></td>
+            <td th:text="${facility.poolArea}"></td>
+            <td th:text="${facility.numberOfFloors}"></td>
+            <td th:text="${facility.facilityType.facilityTypeName}"></td>
+            <td th:text="${facility.rentType.rentTypeName}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div aria-label="..." class="w-25 mx-auto">
+        <div class="pagination justify-content-center">
+            <a th:if="${facilityList.hasPrevious()}"
+               th:href="@{/facility/list(page=${facilityList.number -1},name =${keyword})}">
+                Previous
+            </a>
+            <span th:text="${facilityList.number+1}"></span>
+             /
+            <span th:text="${facilityList.totalPages}"></span>
+            <a th:if="${facilityList.hasNext()}"
+               th:href="@{/facility/list(page=${facilityList.number + 1},name=${keyword})}">
+                Next
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function deleteModal(id, name) {
+            document.getElementById("id-del").value = id;
+            document.getElementById("name").innerText = name;
+        }
+    </script>
+
+</div>
+<footer th:replace="~{layout :: footer}"></footer>
+<th:block th:replace="~{layout::bot-bootstrap}"></th:block>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="~{layout::top-bootstrap}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{layout::header-furama}"></th:block>
+<form th:object="${contractDto}" th:method="post" th:action="@{/contract/save}">
+    <fieldset class="w-75 mx-auto">
+        <legend class="text-center my-4"><span class="text-secondary">Create New Contract</span></legend>
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="startDate" type="date" th:field="*{contractStartDate}"/>
+            <label class="form-label" for="startDate">Contract Start Date:</label>
+        </div>
+        <!--        <div class="w-25 mx-auto">-->
+        <!--            <p class="text-warning" th:if="${#fields.hasErrors('facilityCode')}" th:errors="*{facilityCode}"></p>-->
+        <!--        </div>-->
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="endDate" type="date" th:field="*{contractEndDate}"/>
+            <label class="form-label" for="endDate">Contract End Date:</label>
+        </div>
+
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="deposit" type="text" th:field="*{contractDeposit}"/>
+            <label class="form-label" for="deposit">Deposit</label>
+        </div>
+        <!--        <div class="w-25 mx-auto">-->
+        <!--            <p class="text-warning" th:if="${#fields.hasErrors('facilityArea')}" th:errors="*{facilityArea}"></p>-->
+        <!--        </div>-->
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="money" type="text" th:field="*{contractTotalMoney}"/>
+            <label class="form-label" for="money">Total Money</label>
+        </div>
+        <!--        <div class="w-25 mx-auto">-->
+        <!--            <p class="text-warning" th:if="${#fields.hasErrors('facilityCost')}" th:errors="*{facilityCost}"></p>-->
+        <!--        </div>-->
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <select class="form-select" id="select_facility" th:field="*{customer}">
+                <option value="0" th:text="--select--"></option>
+                <option th:each="type : ${customerList}"
+                        th:value="${type.customerId}"
+                        th:text="${type.customerName}"></option>
+            </select>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <select class="form-select" th:field="*{employee}">
+                <option value="0" th:text="--select--"></option>
+                <option th:each="type : ${employeeList}"
+                        th:value="${type.employeeId}"
+                        th:text="${type.employeeName}"></option>
+            </select>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <select class="form-select" th:field="*{facility}">
+                <option value="0" th:text="--select--"></option>
+                <option th:each="type : ${facilityList}"
+                        th:value="${type.facilityId}"
+                        th:text="${type.facilityName}"></option>
+            </select>
+        </div>
+    </fieldset>
+    <div class="text-center">
+        <button type="submit" class="btn btn-success mt-4 mx-2">Save</button>
+        <button type="reset" class="btn btn-warning mt-4 mx-2">Reset</button>
+    </div>
+</form>
+<div class="text-center">
+    <a class="btn btn-info mt-4 mx-2" th:href="@{/contract/list}">Return contract list</a>
+</div>
+<br>
+
+<script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+</script>
+
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $("#select_facility").change(function () {-->
+<!--            if (this.value == 3) {-->
+<!--                $("#input_pool").hide();-->
+<!--                $("#input_pool").find("input").prop("disabled", true);-->
+<!--                $("#input_floors").hide();-->
+<!--                $("#input_floors").find("input").prop("disabled", true);-->
+<!--            } else if (this.value == 2) {-->
+<!--                $("#input_pool").hide();-->
+<!--                $("#input_pool").find("input").prop("disabled", true);-->
+<!--                $("#input_floors").show();-->
+<!--                $("#input_floors").find("input").prop("disabled", false);-->
+<!--            } else if (this.value == 1) {-->
+<!--                $("#input_pool").show();-->
+<!--                $("#input_pool").find("input").prop("disabled", false);-->
+<!--                $("#input_floors").show();-->
+<!--                $("#input_floors").find("input").prop("disabled", false);-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<th:block th:replace="~{layout::footer-furama}"></th:block>
+<th:block th:replace="~{layout::bot-bootstrap}"></th:block>
+</body>
+</html>

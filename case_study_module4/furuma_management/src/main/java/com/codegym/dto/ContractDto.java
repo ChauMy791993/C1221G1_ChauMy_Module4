@@ -3,8 +3,10 @@ package com.codegym.dto;
 import com.codegym.model.Customer;
 import com.codegym.model.Employee;
 import com.codegym.model.Facility;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
-public class ContractDto {
+public class ContractDto implements Validator {
     private Integer contractId;
     private String contractStartDate;
     private String contractEndDate;
@@ -15,6 +17,16 @@ public class ContractDto {
     private Facility facility;
 
     public ContractDto() {
+    }
+
+    public ContractDto(String contractStartDate, String contractEndDate, Double contractDeposit, Double contractTotalMoney, Customer customer, Employee employee, Facility facility) {
+        this.contractStartDate = contractStartDate;
+        this.contractEndDate = contractEndDate;
+        this.contractDeposit = contractDeposit;
+        this.contractTotalMoney = contractTotalMoney;
+        this.customer = customer;
+        this.employee = employee;
+        this.facility = facility;
     }
 
     public Integer getContractId() {
@@ -79,5 +91,15 @@ public class ContractDto {
 
     public void setFacility(Facility facility) {
         this.facility = facility;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+
     }
 }
