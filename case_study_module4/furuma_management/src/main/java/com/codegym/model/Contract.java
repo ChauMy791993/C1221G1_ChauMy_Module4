@@ -102,4 +102,13 @@ public class Contract {
     public void setFacility(Facility facility) {
         this.facility = facility;
     }
+
+    @Override
+    public String toString() {
+        return
+                "StartDate= " + contractStartDate +
+                ", EndDate= " + contractEndDate +
+                ", customer= " + customer.getCustomerName() +
+                ", facility= " + facility.getFacilityName() ;
+    }
 }

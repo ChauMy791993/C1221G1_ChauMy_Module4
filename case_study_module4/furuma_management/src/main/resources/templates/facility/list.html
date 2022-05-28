@@ -61,7 +61,7 @@
             <td th:text="${facility.facilityCode}"></td>
             <td th:text="${facility.facilityName}"></td>
             <td th:text="${facility.facilityArea}"></td>
-            <td th:text="${facility.facilityCost}"></td>
+            <td th:text="${#numbers.formatDecimal(facility.facilityCost, 0, 'COMMA', 0, 'POINT')}"></td>
             <td th:text="${facility.facilityMaxPeople}"></td>
             <td th:text="${facility.standardRoom}"></td>
             <td th:text="${facility.descriptionOtherConvenience}"></td>

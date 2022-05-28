@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="~{layout::top-bootstrap}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{layout::header-furama}"></th:block>
+<form th:object="${contractDetailDto}" th:method="post" th:action="@{/contract-detail/save}">
+    <fieldset class="w-75 mx-auto">
+        <legend class="text-center my-4"><span class="text-secondary">Create New Contract Detail</span></legend>
+        <div class="form-outline w-25 mx-auto my-4">
+            <input class="form-control" id="startDate" type="text" th:field="*{quantity}"/>
+            <label class="form-label" for="startDate">Quantity:</label>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <select class="form-select" id="select_facility" th:field="*{contract}">
+                <option value="0" th:text="--select--"></option>
+                <option th:each="type : ${contractList}"
+                        th:value="${type.contractId}"
+                        th:text="${type.toString()}"></option>
+            </select>
+        </div>
+
+        <div class="form-outline w-25 mx-auto my-4">
+            <select class="form-select" th:field="*{attachService}">
+                <option value="0" th:text="--select--"></option>
+                <option th:each="type : ${attachServiceList}"
+                        th:value="${type.attachServiceId}"
+                        th:text="${type.attachServiceName}"></option>
+            </select>
+        </div>
+
+    </fieldset>
+    <div class="text-center">
+        <button type="submit" class="btn btn-success mt-4 mx-2">Save</button>
+        <button type="reset" class="btn btn-warning mt-4 mx-2">Reset</button>
+    </div>
+</form>
+<div class="text-center">
+    <a class="btn btn-info mt-4 mx-2" th:href="@{/contract/list}">Return contract list</a>
+</div>
+<br>
+
+<script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+</script>
+
+
+<th:block th:replace="~{layout::footer-furama}"></th:block>
+<th:block th:replace="~{layout::bot-bootstrap}"></th:block>
+</body>
+</html>

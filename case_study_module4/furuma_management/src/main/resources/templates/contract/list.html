@@ -8,31 +8,18 @@
 <body>
 <th:block th:replace ="~{layout::header-furama}"></th:block>
 <br>
-<h2 class="text-center"><a th:href="@{/facility/list}">Facility List</a></h2>
+<h2 class="text-center"><a th:href="@{/contract/list}">Contract List</a></h2>
 <div class="notify">
     <div th:if="${message}">
-        <h1 th:text="${message}" class="text-success"></h1>
+        <h1  th:text="${message}" class="text-success text-center"></h1>
     </div>
 </div>
 
 
 <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="btn btn-primary" style="background-color: #55acee;" th:href="@{/facility/create}" role="button">
-            Add New Facility
-        </a>
-        <form class="d-flex input-group w-auto" action="/facility/list">
-            <input
-                    type="search"
-                    class="form-control rounded"
-                    placeholder="Search"
-                    aria-label="Search"
-                    aria-describedby="search-addon"
-
-                    name="facilityName"
-            />
-            <input class="btn btn-info" type="submit" value="Search">
-        </form>
+    <div>
+        <a type="button" class="btn btn-primary btn-lg" th:href="@{/contract/create}" disabled>Add New Contract</a>
+        <a type="button" class="btn btn-secondary btn-lg" th:href="@{/contract-detail/create}"  disabled>Add New Contract Detail</a>
     </div>
 </nav>
 
@@ -42,33 +29,25 @@
         <thead>
         <tr class="table-warning">
             <th>#</th>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Area</th>
-            <th>Cost</th>
-            <th>Max_People</th>
-            <th>Standard Room</th>
-            <th>Description Other Convenience</th>
-            <th>Pool Area</th>
-            <th>Number Of Floors</th>
-            <th>Facility_Type</th>
-            <th>Rent_Type</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Deposit</th>
+            <th>Total Money</th>
+            <th>Customer</th>
+            <th>Employee</th>
+            <th>Facility</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="facility,lopp : ${facilityList}">
+        <tr th:each="contract,lopp : ${contractList}">
             <td scope="row" th:text="${lopp.count}"></td>
-            <td th:text="${facility.facilityCode}"></td>
-            <td th:text="${facility.facilityName}"></td>
-            <td th:text="${facility.facilityArea}"></td>
-            <td th:text="${facility.facilityCost}"></td>
-            <td th:text="${facility.facilityMaxPeople}"></td>
-            <td th:text="${facility.standardRoom}"></td>
-            <td th:text="${facility.descriptionOtherConvenience}"></td>
-            <td th:text="${facility.poolArea}"></td>
-            <td th:text="${facility.numberOfFloors}"></td>
-            <td th:text="${facility.facilityType.facilityTypeName}"></td>
-            <td th:text="${facility.rentType.rentTypeName}"></td>
+            <td th:text="${contract.contractStartDate}"></td>
+            <td th:text="${contract.contractEndDate}"></td>
+            <td th:text="${contract.contractDeposit}"></td>
+            <td th:text="${contract.contractTotalMoney}"></td>
+            <td th:text="${contract.customer.customerName}"></td>
+            <td th:text="${contract.employee.employeeName}"></td>
+            <td th:text="${contract.facility.facilityName}"></td>
         </tr>
         </tbody>
     </table>
@@ -76,15 +55,15 @@
 
     <div aria-label="..." class="w-25 mx-auto">
         <div class="pagination justify-content-center">
-            <a th:if="${facilityList.hasPrevious()}"
-               th:href="@{/facility/list(page=${facilityList.number -1},name =${keyword})}">
+            <a th:if="${contractList.hasPrevious()}"
+               th:href="@{/contract/list(page=${contractList.number -1})}">
                 Previous
             </a>
-            <span th:text="${facilityList.number+1}"></span>
-             /
-            <span th:text="${facilityList.totalPages}"></span>
-            <a th:if="${facilityList.hasNext()}"
-               th:href="@{/facility/list(page=${facilityList.number + 1},name=${keyword})}">
+            <span th:text="${contractList.number+1}"></span>
+            /
+            <span th:text="${contractList.totalPages}"></span>
+            <a th:if="${contractList.hasNext()}"
+               th:href="@{/contract/list(page=${contractList.number + 1})}">
                 Next
             </a>
         </div>

@@ -58,7 +58,7 @@
                 <th>Position</th>
                 <th>Education_Degree</th>
                 <th>Division</th>
-                <th colspan="3" class="text-center">Action</th>
+                <th class="text-center">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -67,7 +67,7 @@
                 <td th:text="${employee.employeeName}"></td>
                 <td th:text="${employee.employeeDateOfBirth}"></td>
                 <td th:text="${employee.employeeIdCard}"></td>
-                <td th:text="${employee.employeeSalary}"></td>
+                <td th:text="${#numbers.formatDecimal(employee.employeeSalary, 0, 'COMMA', 0, 'POINT')}"></td>
                 <td th:text="${employee.employeePhone}"></td>
                 <td th:text="${employee.employeeEmail}"></td>
                 <td th:text="${employee.employeeAddress}"></td>
@@ -75,19 +75,17 @@
                 <td th:text="${employee.educationDegree.educationDegreeName}"></td>
                 <td th:text="${employee.division.divisionName}"></td>
                 <td>
-                    <a type="button" class="btn btn-warning"
+                    <a type="button" class="btn btn-warning mb-2 w-100"
                        th:href="@{/employee/edit(id=${employee.employeeId})}">Edit</a>
-                </td>
-                <td>
+
                     <a th:attr="onclick=|deleteModal('${employee.employeeId}', '${employee.employeeName}')|"
                        type="button"
-                       class="btn btn-danger"
+                       class="btn btn-danger mb-2 w-100"
                        data-mdb-toggle="modal" data-mdb-target="#exampleModal">
                         Delete
                     </a>
-                </td>
-                <td>
-                    <a type="button" class="btn btn-info"
+
+                    <a type="button" class="btn btn-info mb-2 w-100"
                        th:href="@{/employee/detail(id=${employee.employeeId})}">Detail</a>
                 </td>
             </tr>
