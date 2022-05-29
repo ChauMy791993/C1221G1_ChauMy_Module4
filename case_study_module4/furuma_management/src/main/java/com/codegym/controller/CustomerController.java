@@ -1,12 +1,14 @@
 package com.codegym.controller;
 
 import com.codegym.dto.CustomerDto;
+import com.codegym.dto.ICustomerUseService;
 import com.codegym.model.Customer;
 import com.codegym.model.CustomerType;
 import com.codegym.service.ICustomerService;
 import com.codegym.service.ICustomerTypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -29,7 +31,7 @@ public class CustomerController {
 
 
     @ModelAttribute("customerTypeList")
-    public List<CustomerType> getCustomerType(){
+    public List<CustomerType> getCustomerType() {
         return iCustomerTypeService.findAll();
     }
 
@@ -122,5 +124,13 @@ public class CustomerController {
             return "redirect:/customer/list";
         }
     }
+
+    @GetMapping("/customer-use-service")
+    public String getListCustomerUserService(Model model, @PageableDefault(value = 3) Pageable pageable) {
+        Page<ICustomerUseService> iCustomerUseServices = iCustomerService.findAllCustomerHaveBooking(pageable);
+        model.addAttribute("iCustomerUseServices", iCustomerUseServices);
+        return "customer/customer-use-service-list";
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.codegym.repository;
 
+import com.codegym.dto.ICustomerUseService;
 import com.codegym.model.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +17,8 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
     @Query(value ="select c.customer_name customerName,\n" +
             "       f.facility_name facilityName,\n" +
-            "       c2.contract_start_day startDay,\n" +
-            "       c2.contract_end_day endDay,\n" +
+            "       c2.contract_start_date startDay,\n" +
+            "       c2.contract_end_date endDay,\n" +
             "       GROUP_CONCAT(a.attach_service_name) attachService,\n" +
             "        SUM(coalesce(cd.quantity * a.attach_service_cost,0))+ f.facility_cost total\n" +
             "       from customer c\n" +
@@ -28,15 +29,15 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             "group by c2.contract_id",
             countQuery = "select c.customer_name customerName,\n" +
                     "       f.facility_name facilityName,\n" +
-                    "       c2.contract_start_day startDay,\n" +
-                    "       c2.contract_end_day endDay,\n" +
-                    "       GROUP_CONCAT(a.name_attach_service) attachService,\n" +
-                    "        SUM(coalesce(cd.quantity * a.cost_attach_service,0))+ f.facility_cost total\n" +
+                    "       c2.contract_start_date startDay,\n" +
+                    "       c2.contract_end_date endDay,\n" +
+                    "       GROUP_CONCAT(a.attach_service_name) attachService,\n" +
+                    "        SUM(coalesce(cd.quantity * a.attach_service_cost,0))+ f.facility_cost total\n" +
                     "       from customer c\n" +
                     "inner join contract c2 on c.customer_id = c2.customer_id\n" +
                     "inner join facility f on c2.facility_id = f.facility_id\n" +
                     "left join contract_detail cd on c2.contract_id = cd.contract_id\n" +
                     "left join attach_service a on cd.attach_service_id = a.attach_service_id\n" +
                     "group by c2.contract_id",nativeQuery = true)
-    Page<IInHouseGuestsDto> findAllCustomerHaveBooking(Pageable pageable);
+    Page<ICustomerUseService> findAllCustomerHaveBooking(Pageable pageable);
 }

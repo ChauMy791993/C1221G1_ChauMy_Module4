@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="~{layout::top-bootstrap}"></th:block>
+</head>
+<body>
+<th:block th:replace ="~{layout::header-furama}"></th:block>
+<br>
+<h2 class="text-center"><a th:href="@{/templates/customer/customer-use-service-list.html}">Customer Use List</a></h2>
+<!--<div class="notify">-->
+<!--    <div th:if="${message}">-->
+<!--        <h1  th:text="${message}" class="text-success text-center"></h1>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<!--<nav class="navbar navbar-light bg-light">-->
+<!--    <div>-->
+<!--        <a type="button" class="btn btn-primary btn-lg" th:href="@{/contract/create}" disabled>Add New Contract</a>-->
+<!--        <a type="button" class="btn btn-secondary btn-lg" th:href="@{/contract-detail/create}"  disabled>Add New Contract Detail</a>-->
+<!--    </div>-->
+<!--</nav>-->
+
+
+<div>
+    <table class="table table-striped mx-auto w-75">
+        <thead>
+        <tr class="table-warning">
+            <th>#</th>
+            <td>Name Customer</td>
+            <td>Facility Name</td>
+            <td>Start Day</td>
+            <td>End Day</td>
+            <td>Attach Service</td>
+            <td>Total</td>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer,lopp : ${iCustomerUseServices}">
+            <td scope="row" th:text="${lopp.count}"></td>
+            <td th:text="${customer.customerName}"></td>
+            <td th:text="${customer.facilityName}"></td>
+            <td th:text="${customer.startDay}"></td>
+            <td th:text="${customer.endDay}"></td>
+            <td th:text="${customer.attachService}"></td>
+            <td th:text="${#numbers.formatDecimal(customer.total, 0, 'COMMA', 0, 'POINT')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div aria-label="..." class="w-25 mx-auto">
+        <div class="pagination justify-content-center">
+            <a th:if="${iCustomerUseServices.hasPrevious()}"
+               th:href="@{/customer/customer-use-service-list(page=${iCustomerUseServices.number -1})}">
+                Previous
+            </a>
+            <span th:text="${iCustomerUseServices.number+1}"></span>
+            /
+            <span th:text="${iCustomerUseServices.totalPages}"></span>
+            <a th:if="${iCustomerUseServices.hasNext()}"
+               th:href="@{/customer/customer-use-service-list(page=${iCustomerUseServices.number + 1})}">
+                Next
+            </a>
+        </div>
+    </div>
+
+<!--    <script>-->
+<!--        function deleteModal(id, name) {-->
+<!--            document.getElementById("id-del").value = id;-->
+<!--            document.getElementById("name").innerText = name;-->
+<!--        }-->
+<!--    </script>-->
+
+</div>
+<footer th:replace="~{layout :: footer}"></footer>
+<th:block th:replace="~{layout::bot-bootstrap}"></th:block>
+</body>
+</html>
